@@ -1,0 +1,73 @@
+object frmMain: TfrmMain
+  Left = 250
+  Height = 501
+  Top = 197
+  Width = 835
+  Caption = 'USynth'
+  ClientHeight = 476
+  ClientWidth = 835
+  Menu = mnuMain
+  LCLVersion = '1.2.4.0'
+  object pgctrlMain: TPageControl
+    Left = 0
+    Height = 476
+    Top = 0
+    Width = 835
+    ActivePage = tabMidiChannel1
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 0
+    object tabMidiChannel1: TTabSheet
+      Caption = 'Midi channel 1'
+      ClientHeight = 447
+      ClientWidth = 831
+      object CoolBar1: TCoolBar
+        Left = 0
+        Height = 267
+        Top = 0
+        Width = 831
+        Bands = <        
+          item
+          end        
+          item
+            MinHeight = 50
+          end        
+          item
+          end>
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'TabSheet2'
+    end
+  end
+  object mnuMain: TMainMenu
+    left = 279
+    top = 57
+    object mnuFile: TMenuItem
+      Caption = '&File'
+      object mnuFileLoad: TMenuItem
+        Caption = '&Load'
+        OnClick = mnuFileLoadClick
+      end
+      object mnuFileSave: TMenuItem
+        Caption = '&Save'
+        OnClick = mnuFileSaveClick
+      end
+      object mnuFileExit: TMenuItem
+        Caption = '&Exit'
+        OnClick = mnuFileExitClick
+      end
+    end
+    object mnuHelp: TMenuItem
+      Caption = '?'
+      object mnuHelpAbout: TMenuItem
+        Caption = '&About'
+        OnClick = mnuHelpAboutClick
+      end
+    end
+    object mnuGlobalMidiInput: TMenuItem
+      Caption = 'Global midi input'
+      RightJustify = True
+    end
+  end
+end
