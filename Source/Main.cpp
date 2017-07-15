@@ -13,12 +13,14 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 
 #ifdef WIN32
-#include <pdcurses.h> //TODO: Check name !
+#include <curses.h> //TODO: Check name ! ==> Done, same name :)
+// Source : https://stackoverflow.com/questions/31821159/compile-simple-c-code-in-visual-studio-2013
+#include <windows.h>
+#define sleep(s) Sleep((s) * 1000) // For Sleep (notice the weird capital...)
 #else
 #include <curses.h>
+#include <unistd.h> // For sleep()
 #endif
-
-#include <unistd.h> // for sleep()
 
 using namespace std;
 
