@@ -1,7 +1,7 @@
-Welcome to USYNTH / The Sound Explorer
+Welcome to USynth Reloaded / The Sound Explorer
 
 Endless TODO list
 -----------------
 
-[ ] Port everything in C++ with JUCE
+[x] Port everything in C++ with JUCE (Done : hence the Reloaded... I've left Lazarus and all the crapies sound lib found so far)
 [ ] ...

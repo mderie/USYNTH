@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2013
+Project("{77667EE8-1719-7401-C0CB-53C2F255A3C8}") = "usynth", "usynth.vcxproj", "{CC737DAD-C9D3-1E00-3D51-9B5E6332F368}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CC737DAD-C9D3-1E00-3D51-9B5E6332F368}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CC737DAD-C9D3-1E00-3D51-9B5E6332F368}.Debug|Win32.Build.0 = Debug|Win32
+		{CC737DAD-C9D3-1E00-3D51-9B5E6332F368}.Release|Win32.ActiveCfg = Release|Win32
+		{CC737DAD-C9D3-1E00-3D51-9B5E6332F368}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
