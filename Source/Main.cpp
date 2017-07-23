@@ -1,3 +1,4 @@
+
 /*
   ==============================================================================
 
@@ -22,17 +23,39 @@
 #include <unistd.h> // For sleep()
 #endif
 
+// Sources of inspiration
+//
+// https://learningmodular.com/
+// https://www.modulargrid.net/
+// http://www.soundonsound.com/reviews/secret-world-modular-synthesizers
+// ...
+
+//TODO: Fine tune this list of prj include...
+#include "LaunchpadPrimitives.hpp"
+#include "AudioBuffers.hpp"
+#include "AudioModules.hpp"
+#include "KeywordCommands.hpp"
+#include "MidiCommands.hpp"
+#include "MidiNotes.hpp"
+#include "ConfigurationFiles.hpp"
+#include "UIElements.hpp"
+//TODO: create #include "Console.hpp" ?
+//TODO: create #include "Timer.hpp" ?
+//TODO: create #include "AudioOuts.hpp" ?
+
 using namespace std;
 
 //==============================================================================
 int main (int argc, char* argv[])
 {
+    // <ncurses sample code>
     WINDOW * mainwin;
 
     /*  Initialize ncurses  */
-    if ( (mainwin = initscr()) == NULL ) {
-	fprintf(stderr, "Error initialising ncurses.\n");
-	exit(EXIT_FAILURE);
+    if ((mainwin = initscr()) == NULL)
+    {
+        fprintf(stderr, "Error initialising ncurses.\n");
+        exit(EXIT_FAILURE);
     }
 
     /*  Display "Hello, world!" in the centre of the
@@ -46,7 +69,8 @@ int main (int argc, char* argv[])
     delwin(mainwin);
     endwin();
     refresh();
+    // </ncurses sample code>
 
-    cout << "Welcome to USynth Reloaded / The sound explorer" << endl;
+    cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << endl;
     return 0;
 }
