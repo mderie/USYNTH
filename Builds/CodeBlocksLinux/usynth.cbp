@@ -2850,17 +2850,27 @@
 		<Unit filename="../../JuceLibraryCode/juce_video.cpp" />
 		<Unit filename="../../Source/AudioBuffers.cpp" />
 		<Unit filename="../../Source/AudioBuffers.hpp" />
+		<Unit filename="../../Source/AudioDevices.cpp" />
+		<Unit filename="../../Source/AudioDevices.hpp" />
 		<Unit filename="../../Source/AudioModules.cpp" />
 		<Unit filename="../../Source/AudioModules.hpp" />
-		<Unit filename="../../Source/MidiCommands.cpp" />
-		<Unit filename="../../Source/MidiCommands.hpp" />
-                <Unit filename="../../Source/KeywordCommands.cpp" />
+		<Unit filename="../../Source/CommonStuffs.cpp" />
+		<Unit filename="../../Source/CommonStuffs.hpp" />
+		<Unit filename="../../Source/ConfigurationFiles.cpp" />
+		<Unit filename="../../Source/ConfigurationFiles.hpp" />
+		<Unit filename="../../Source/KeywordCommands.cpp" />
 		<Unit filename="../../Source/KeywordCommands.hpp" />
-                <Unit filename="../../Source/MidiNotes.cpp" />
-		<Unit filename="../../Source/MidiNotes.hpp" />
 		<Unit filename="../../Source/LaunchpadPrimitives.cpp" />
 		<Unit filename="../../Source/LaunchpadPrimitives.hpp" />
 		<Unit filename="../../Source/Main.cpp" />
+		<Unit filename="../../Source/MidiCommands.cpp" />
+		<Unit filename="../../Source/MidiCommands.hpp" />
+		<Unit filename="../../Source/MidiNotes.cpp" />
+		<Unit filename="../../Source/MidiNotes.hpp" />
+		<Unit filename="../../Source/ThreadedTimers.cpp" />
+		<Unit filename="../../Source/ThreadedTimers.hpp" />
+		<Unit filename="../../Source/UIElements.cpp" />
+		<Unit filename="../../Source/UIElements.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
