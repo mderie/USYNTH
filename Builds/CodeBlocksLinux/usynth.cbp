@@ -16,7 +16,7 @@
 					<Add option="-g" />
 					<Add option="-O0" />
 					<Add option="-mstackrealign" />
-					<Add option="`pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama`" />
+					<Add option="`pkg-config --cflags alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0`" />
 					<Add option="-pthread" />
 					<Add option="-DLINUX=1" />
 					<Add option="-DDEBUG=1" />
@@ -28,9 +28,18 @@
 					<Add directory="../../JuceLibraryCode" />
 					<Add directory="../../../../library/JUCE/modules" />
 					<Add directory="/usr/include/freetype2" />
+                                        <Add directory="/usr/include/gtk-3.0" />
+                                        <Add directory="/usr/include/glib-2.0" />
+                                        <Add directory="/usr/lib/x86_64-linux-gnu/glib-2.0/include" />
+                                        <Add directory="/usr/include/libsoup-2.4" />
+                                        <Add directory="/usr/include/webkitgtk-4.0" />
+                                        <Add directory="/usr/include/pango-1.0" />
+                                        <Add directory="/usr/include/atk-1.0" />
+                                        <Add directory="/usr/include/cairo" />
+                                        <Add directory="/usr/include/gdk-pixbuf-2.0" />
 				</Compiler>
 				<Linker>
-					<Add option="`pkg-config --libs alsa freetype2 libcurl x11 xext xinerama`" />
+					<Add option="`pkg-config --libs alsa freetype2 libcurl x11 xext xinerama webkit2gtk-4.0 gtk+-x11-3.0`" />
 					<Add library="GL" />
 					<Add library="dl" />
 					<Add library="pthread" />

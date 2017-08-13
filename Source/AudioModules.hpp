@@ -20,7 +20,7 @@ const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "
 // class Knob ?
 
 // Base class for all elements in a case (cable and module)
-class CaseElement, public IAmDumpable
+class CaseElement : public IAmDumpable
 {
 protected:
   Kind m_kind;
@@ -32,7 +32,7 @@ public:
 };
 
 // The case sole instance
-class CaseSingleton, public IAmDumpable
+class CaseSingleton : public IAmDumpable
 {
 private:
   std::map<std::string, CaseElement*> m_elements; // Tuple <element.id, element*>

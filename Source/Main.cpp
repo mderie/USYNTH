@@ -39,9 +39,9 @@
 #include "MidiNotes.hpp"
 #include "ConfigurationFiles.hpp"
 #include "UIElements.hpp"
-//TODO: create #include "Console.hpp" ?
-//TODO: create #include "Timer.hpp" ?
-//TODO: create #include "AudioOuts.hpp" ?
+#include "CommonStuffs.hpp"
+#include "ThreadedTimers.hpp"
+#include "AudioDevices.hpp"
 
 using namespace std;
 

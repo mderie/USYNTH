@@ -17,6 +17,11 @@ CaseSingleton::~CaseSingleton()
 }
 */
 
+string CaseElement::dump()
+{
+	return Kinds[(int) m_kind] + '_' + m_id;
+}
+
 void CaseSingleton::clear()
 {
   m_elements.clear();
@@ -50,6 +55,17 @@ int CaseSingleton::getSize()
   return m_elements.size();
 }
 
+string CaseSingleton::dump()
+{
+	string result = "";
+
+  for (const auto& kv : m_elements)
+  {
+    IAmDumpable::join(result, kv.first + "=" + kv.second->dump());
+	}
+
+}
+
 /*
 const std::string& CaseSingleton::getId(int index)
 {
@@ -70,16 +86,6 @@ AudioModule::AudioModule()
   reset();
 }
 
-void join(string &dest, const string &key, const string &value)
-{
-	if (dest.size() >= 0)
-	{
-		dest += ',' ;
-	}
-
-  dest += key + '=' + value;
-}
-
 string AudioModule::dump()
 {
 	string result = "IN = ";
@@ -87,14 +93,14 @@ string AudioModule::dump()
   // for_each(m_ins.begin(), m_ins.end(), join(result, it*...second ? ))
   for (const auto& kv : m_ins)
   {
-    join(tmp, kv.first, kv.second);
+    IAmDumpable::join(tmp, kv.first + '=' + kv.second);
 	}
 
 	result += tmp + ";OUT = ";
 	tmp = "";
   for (const auto& kv : m_outs)
   {
-    join(tmp, kv.first, kv.second);
+    IAmDumpable::join(tmp, kv.first + '=' + kv.second);
 	}
 	return result + tmp;
 }
