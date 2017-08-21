@@ -1911,6 +1911,39 @@
     <ClCompile Include="..\..\JuceLibraryCode\juce_video.cpp">
       <Filter>Juce Library Code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\AudioBuffers.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioDevices.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\AudioModules.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\CommonStuffs.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ConfigurationFiles.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\KeywordCommands.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\LaunchpadPrimitives.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MidiCommands.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MidiNotes.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ThreadedTimers.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\UIElements.cpp">
+      <Filter>usynth\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_audio_basics\buffers\juce_AudioChannelSet.h">
@@ -3733,6 +3766,52 @@
     <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_gui_extra\juce_gui_extra.h" />
     <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_opengl\juce_opengl.h" />
     <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_video\juce_video.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_audio_basics\juce_audio_basics.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_audio_devices\juce_audio_devices.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_audio_formats\juce_audio_formats.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_audio_processors\juce_audio_processors.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_core\juce_core.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_cryptography\juce_cryptography.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_data_structures\juce_data_structures.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_events\juce_events.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_graphics\juce_graphics.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_gui_basics\juce_gui_basics.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_gui_extra\juce_gui_extra.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_opengl\juce_opengl.h" />
+    <ClInclude Include="..\..\..\..\library\JUCE\modules\juce_video\juce_video.h" />
+    <ClInclude Include="..\..\Source\AudioBuffers.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioDevices.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\AudioModules.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CommonStuffs.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ConfigurationFiles.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\KeywordCommands.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\LaunchpadPrimitives.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MidiCommands.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MidiNotes.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ThreadedTimers.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\UIElements.hpp">
+      <Filter>usynth\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\library\JUCE\modules\juce_audio_formats\codecs\flac\Flac Licence.txt">

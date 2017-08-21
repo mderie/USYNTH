@@ -14,6 +14,10 @@
 // Where to put the n-duplicator ?
 // Where to put the clock diviser ?
 
+#ifdef WIN32
+#undef OUT
+#endif
+
 enum class Kind { CBL, LFO, VCO, VCF, VCA, RND, DUP, ENV, ADD, SUB, AND, MIX, NOT, OUT, LAST_ITEM }; // With the NOT maybe we don't need the SUB ?
 const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "VCA", "RND", "DUP", "ENV", "ADD", "SUB", "AND", "MIX", "NOT", "OUT" };
 

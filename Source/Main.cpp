@@ -27,7 +27,7 @@
 #include <unistd.h> // For sleep()
 #endif
 
-#ifdef WINDOWS // Better than WIN32 ?
+#ifdef WIN32 // Don't use WINDOWS !
 #include <direct.h>
 #define GetCurrentDir _getcwd
 #else

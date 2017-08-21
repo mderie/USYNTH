@@ -3,6 +3,11 @@
 #include <iterator>
 #include <vector>
 #include <algorithm>
+#include <ctype.h>
+
+#ifdef WIN32
+#include <ciso646>
+#endif
 
 #include "KeywordCommands.hpp"
 #include "AudioModules.hpp"
@@ -19,7 +24,7 @@ namespace
 std::string string_upper(const std::string &s)
 {
   string result(s.size(), 0);
-  transform(s.begin(), s.end(), result.begin(), [] (unsigned char c) { return std::toupper(c); } ); // Yes a lambda :)
+  transform(s.begin(), s.end(), result.begin(), [] (unsigned char c) { return toupper(c); } ); // Yes a lambda :)
   return result;
 }
 
