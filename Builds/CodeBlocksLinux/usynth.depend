@@ -4327,12 +4327,15 @@
 	"../native/juce_win32_CameraDevice.h"
 	"../native/juce_android_CameraDevice.h"
 
-1502379133 source:/home/sam/laboratory/usynth/Source/Main.cpp
+1503176447 source:/home/sam/laboratory/usynth/Source/Main.cpp
 	<iostream>
+	<string>
 	"../JuceLibraryCode/JuceHeader.h"
 	<curses.h>
 	<windows.h>
 	<curses.h>
+	<unistd.h>
+	<direct.h>
 	<unistd.h>
 	"LaunchpadPrimitives.hpp"
 	"AudioBuffers.hpp"
@@ -4367,11 +4370,11 @@
 
 1500739715 /home/sam/laboratory/usynth/Source/AudioBuffers.hpp
 
-1502295546 source:/home/sam/laboratory/usynth/Source/AudioModules.cpp
+1503217964 source:/home/sam/laboratory/usynth/Source/AudioModules.cpp
 	"AudioModules.hpp"
 	<limits>
 
-1502295150 /home/sam/laboratory/usynth/Source/AudioModules.hpp
+1503217923 /home/sam/laboratory/usynth/Source/AudioModules.hpp
 	<string>
 	<vector>
 	<map>
@@ -4388,12 +4391,14 @@
 1492335414 /home/sam/laboratory/usynth/Source/LaunchpadPrimitives.hpp
 	"../JuceLibraryCode/JuceHeader.h"
 
-1502295851 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
-	"KeywordCommands.hpp"
+1503218389 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
 	<sstream>
 	<iterator>
 	<vector>
 	<algorithm>
+	"KeywordCommands.hpp"
+	"AudioModules.hpp"
+	"UIElements.hpp"
 
 1502293219 /home/sam/laboratory/usynth/Source/KeywordCommands.hpp
 	<string>
@@ -4408,14 +4413,22 @@
 
 1500739799 /home/sam/laboratory/usynth/Source/MidiNotes.hpp
 
-1500738933 source:/home/sam/laboratory/usynth/Source/ConfigurationFiles.cpp
+1503143392 source:/home/sam/laboratory/usynth/Source/ConfigurationFiles.cpp
+	<iostream>
+	<fstream>
 	"ConfigurationFiles.hpp"
 
-1500739836 /home/sam/laboratory/usynth/Source/ConfigurationFiles.hpp
+1503139228 /home/sam/laboratory/usynth/Source/ConfigurationFiles.hpp
+	<string>
+	<map>
+	<vector>
 
-1500740337 /home/sam/laboratory/usynth/Source/UIElements.hpp
+1503176158 /home/sam/laboratory/usynth/Source/UIElements.hpp
+	<string>
+	<curses.h>
 
-1500740313 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
+1503217023 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
+	<iostream>
 	"UIElements.hpp"
 
 1502028470 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
@@ -4429,10 +4442,10 @@
 
 1501923839 /home/sam/laboratory/usynth/Source/ThreadedTimers.hpp
 
-1502295113 /home/sam/laboratory/usynth/Source/CommonStuffs.hpp
+1503217519 /home/sam/laboratory/usynth/Source/CommonStuffs.hpp
 	<string>
 
-1502295126 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
+1503217396 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
 	"CommonStuffs.hpp"
 
 1501690318 /home/sam/library/JUCE/modules/juce_core/misc/juce_StdFunctionCompat.h

@@ -39,11 +39,14 @@ private:
   // We can't be instatied :)
   CaseSingleton() {}
   CaseSingleton(const CaseSingleton&) {}
+  static CaseSingleton* s_instance;
 public:
 /*
   CaseSingleton();
   ~CaseSingleton();
 */
+
+	static CaseSingleton* getInstance();
   void add(CaseElement* element);
   void del(CaseElement* element);
   CaseElement* getElement(const std::string& id);
@@ -59,7 +62,7 @@ typedef std::map<std::string, std::string>::const_iterator DicocIt;
 const int LOOP_COUNTER_MAX = 10;
 
 // Base class for all audio modules...
-class AudioModule : public CaseElement, public IAmDumpable
+class AudioModule : public CaseElement
 {
 protected:
   Dico m_ins;

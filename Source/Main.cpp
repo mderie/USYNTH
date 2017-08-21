@@ -10,6 +10,10 @@
 */
 
 #include <iostream>
+#include <string>
+
+// Defined in the upcoming C++ 17 standard
+// #include <filesystem>
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
@@ -22,6 +26,28 @@
 #include <curses.h>
 #include <unistd.h> // For sleep()
 #endif
+
+#ifdef WINDOWS // Better than WIN32 ?
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+
+// No real standard c++ to do this...
+std::string runningFolder()
+{
+	char cCurrentPath[FILENAME_MAX];
+
+	if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath)))
+	{
+		return ".";
+	}
+
+	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
+	return std::string(cCurrentPath);
+}
 
 // Sources of inspiration
 //
@@ -43,6 +69,7 @@
 #include "ThreadedTimers.hpp"
 #include "AudioDevices.hpp"
 
+// To be removed ?
 using namespace std;
 
 //==============================================================================
@@ -60,10 +87,10 @@ int main (int argc, char* argv[])
 
     /*  Display "Hello, world!" in the centre of the
 	screen, call refresh() to show our changes, and
-	sleep() for a few seconds to get the full screen effect  */
+	sleep() for a few seconds to get rid of the full screen effect  */
     mvaddstr(13, 33, "Hello, world!");
     refresh();
-    sleep(3);
+    sleep(2);
 
     /*  Clean up after ourselves  */
     delwin(mainwin);
@@ -71,6 +98,38 @@ int main (int argc, char* argv[])
     refresh();
     // </ncurses sample code>
 
-    cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << endl;
+    std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
+
+    // C++17 only
+    //std::string path = std::filesystem::current_path();
+    //std::cout << "path = " << runningFolder() << std::endl;
+
+    // Create here all the global objects (argh !-)
+    MainScreen ms;
+    ms.show();
+    std::string s;
+    ConfigurationFile cf(runningFolder() + string("/mapping.ini"));
+    //ConfigurationFile ?;
+
+    /*
+    auto keys = cf.getKeys(); // I'm so lzay :)
+    if (std::find(keys.begin(), keys.end(), "ROTC11") != keys.end())
+    {
+			std::cout << "Found key = ROTC11 with value" << cf.getKeyValue("ROTC11") << std::endl;
+    }
+    */
+
+    //Message msg;
+    while (true)
+    {
+      s = ms.nextCommand();
+			if (!KeywordCommand::process(s))
+			{
+				break;
+			}
+    }
+
+    // Unload stuff here... Destroy the singletons :)
+
     return 0;
 }
