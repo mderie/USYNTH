@@ -20,7 +20,7 @@ using namespace std;
 namespace
 {
 
-// Does not seem to belong to the standart...
+// Does not seem to belong to the standard...
 std::string string_upper(const std::string &s)
 {
   string result(s.size(), 0);
@@ -30,7 +30,7 @@ std::string string_upper(const std::string &s)
 
 }
 
-bool KeywordCommand::process(const std::string &what)
+bool KeywordCommand::process(std::string &what)
 {
   // Heavy solution just for tokenization and upper case...
   std::stringstream ss(string_upper(what));
@@ -38,16 +38,21 @@ bool KeywordCommand::process(const std::string &what)
 
   if ((tokens[0] == "QUIT") or (tokens[0] == "EXIT"))
   {
-
-    return true;
+    what = "";
+    return true; // Or false... Anyway we will break the main loop !
   }
   else if ((tokens[0] == "LS") or (tokens[0] == "DIR"))
   {
-		//MainScreenSingleton CaseSingleton::getInstance().dump();
+		//TODO: MainScreenSingleton CaseSingleton::getInstance().dump();
+    return true;
+  }
+  else if ((tokens[0] == "CLS") or (tokens[0] == "CLEAR"))
+  {
+		//TODO: MainScreenSingleton.getInstance().clear();
     return true;
   }
   else
   {
-    return false;
+    return false; // Unknown command !
   }
 }

@@ -12,7 +12,7 @@
 class KeywordCommand
 {
 public:
-  static bool process(const std::string& what); // Return false for unknown command
+  static bool process(std::string& what); // Return false for unknown command & clear what if exit or quit found !
 };
 
 #endif // KEYWORD_COMMANDS

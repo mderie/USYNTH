@@ -75,30 +75,9 @@ using namespace std;
 //==============================================================================
 int main (int argc, char* argv[])
 {
-    // <ncurses sample code>
-    WINDOW * mainwin;
+	char command[255] = ""; // I'm too lazy to convert ncurses char * based code...
 
-    /*  Initialize ncurses  */
-    if ((mainwin = initscr()) == NULL)
-    {
-        fprintf(stderr, "Error initialising ncurses.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    /*  Display "Hello, world!" in the centre of the
-	screen, call refresh() to show our changes, and
-	sleep() for a few seconds to get rid of the full screen effect  */
-    mvaddstr(13, 33, "Hello, world!");
-    refresh();
-    sleep(2);
-
-    /*  Clean up after ourselves  */
-    delwin(mainwin);
-    endwin();
-    refresh();
-    // </ncurses sample code>
-
-    std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
+    // std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
 
     // C++17 only
     //std::string path = std::filesystem::current_path();
@@ -106,9 +85,10 @@ int main (int argc, char* argv[])
 
     // Create here all the global objects (argh !-)
     MainScreen ms;
-    ms.show();
+
     std::string s;
     ConfigurationFile cf(runningFolder() + string("/mapping.ini"));
+
     //ConfigurationFile ?;
 
     /*
@@ -122,11 +102,24 @@ int main (int argc, char* argv[])
     //Message msg;
     while (true)
     {
-      s = ms.nextCommand();
+      ms.rebuild();
+      ms.readLine(command, sizeof(command));
+      s = string(command); // Back to C++ world...
+
+		  if (s.size() == 0)
+		  {
+				continue; // Easy case : empty command...
+		  }
+
 			if (!KeywordCommand::process(s))
 			{
-				break;
+			  ms.writeLine("Unrecognized command : " + s);
+				continue;
 			}
+			else if (s.size() == 0)
+      {
+				break;
+      }
     }
 
     // Unload stuff here... Destroy the singletons :)

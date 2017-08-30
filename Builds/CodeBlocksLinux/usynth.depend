@@ -4327,7 +4327,7 @@
 	"../native/juce_win32_CameraDevice.h"
 	"../native/juce_android_CameraDevice.h"
 
-1503176447 source:/home/sam/laboratory/usynth/Source/Main.cpp
+1504119225 source:/home/sam/laboratory/usynth/Source/Main.cpp
 	<iostream>
 	<string>
 	"../JuceLibraryCode/JuceHeader.h"
@@ -4374,7 +4374,7 @@
 	"AudioModules.hpp"
 	<limits>
 
-1503217923 /home/sam/laboratory/usynth/Source/AudioModules.hpp
+1503336824 /home/sam/laboratory/usynth/Source/AudioModules.hpp
 	<string>
 	<vector>
 	<map>
@@ -4391,16 +4391,18 @@
 1492335414 /home/sam/laboratory/usynth/Source/LaunchpadPrimitives.hpp
 	"../JuceLibraryCode/JuceHeader.h"
 
-1503218389 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
+1504119045 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
 	<sstream>
 	<iterator>
 	<vector>
 	<algorithm>
+	<ctype.h>
+	<ciso646>
 	"KeywordCommands.hpp"
 	"AudioModules.hpp"
 	"UIElements.hpp"
 
-1502293219 /home/sam/laboratory/usynth/Source/KeywordCommands.hpp
+1504118786 /home/sam/laboratory/usynth/Source/KeywordCommands.hpp
 	<string>
 
 1500740290 source:/home/sam/laboratory/usynth/Source/MidiCommands.cpp
@@ -4423,12 +4425,17 @@
 	<map>
 	<vector>
 
-1503176158 /home/sam/laboratory/usynth/Source/UIElements.hpp
+1504123659 /home/sam/laboratory/usynth/Source/UIElements.hpp
 	<string>
-	<curses.h>
+	<vector>
 
-1503217023 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
+1504118413 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
 	<iostream>
+	<ncurses.h>
+	<unistd.h>
+	<string.h>
+	<ctype.h>
+	<stdlib.h>
 	"UIElements.hpp"
 
 1502028470 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
