@@ -1,5 +1,8 @@
 
 #include <iostream>
+#include <iterator>
+#include <vector>
+#include <algorithm>
 
 // Faking a namespace to avoid name collisions... Doesn't work since curses is full of macros :(
 //Neither preceding every cursed stuff by ::
@@ -15,7 +18,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+// Instead of renaning my functions scroll2 & clear2, I could have put this include before the curses one and use this
 #include "UIElements.hpp"
+#include "CommonStuffs.hpp"
 
 #define WASTED_SCREEN_LINES 4 // Top line + 3 lines at the bottom of the screen
 #define OUTPUT_LINES_MAX 255
@@ -29,9 +34,23 @@ void logThis(const char *what)
   fclose(fLog);
 }
 
+// Enable the logger
+//#define LOG_THIS(what) logThis(what)
+// Disable the logger
+#define LOG_THIS(what)
+
+MainScreen* MainScreen::s_instance = nullptr;
+MainScreen* MainScreen::getInstance()
+{
+	if (s_instance == nullptr)
+	{
+		s_instance = new MainScreen();
+	}
+	return s_instance;
+}
+
 MainScreen::MainScreen()
 {
-  //toto;
   initscr(); // Initialize ncurses
   cbreak(); // No line buffering
   keypad(stdscr, TRUE); // Allow extended key like F1
@@ -48,32 +67,36 @@ MainScreen::~MainScreen()
 
 void MainScreen::scroll2()
 {
+	LOG_THIS("MainScreen::scroll2 ==> Entering");
   if (m_lines.size() == 0)
   {
+		LOG_THIS("MainScreen::scroll2 ==> Leaving : Nothing to do !");
     return;
   }
 
-  for (size_t i = 0; i < m_lines.size(); i++)
+  for (size_t i = 1; i < m_lines.size(); i++)
   {
-    m_lines[i] = m_lines[i + 1];
+    m_lines[i - 1] = m_lines[i];
   }
 
-  m_lines.erase(m_lines.end()); //TODO: - 1 ?
+  LOG_THIS("MainScreen::scroll2 ==> Boum next line ?");
+  m_lines.erase(m_lines.end());
+  LOG_THIS("MainScreen::scroll2 ==> Leaving");
 }
 
 void MainScreen::clear2()
 {
-	logThis("MainScreen::clear2 ==> Entering");
+	LOG_THIS("MainScreen::clear2 ==> Entering");
   m_lines.clear();
-  logThis("MainScreen::clear2 ==> Leaving");
+  LOG_THIS("MainScreen::clear2 ==> Leaving");
 }
 
 void MainScreen::show()
 {
-	logThis("MainScreen::show ==> Entering");
+	LOG_THIS("MainScreen::show ==> Entering");
 	if (m_lines.size() == 0)
   {
-		logThis("MainScreen::show ==> Leaving : Nothing to do !");
+		LOG_THIS("MainScreen::show ==> Leaving : Nothing to do !");
     return;
   }
 
@@ -81,40 +104,41 @@ void MainScreen::show()
   // Except if we have more lines in the buffer than the screen
   if ((int) m_lines.size() > m_maxY - WASTED_SCREEN_LINES)
   {
-    logThis("MainScreen::show ==> Correcting firstLineOffset value");
+    LOG_THIS("MainScreen::show ==> Correcting firstLineOffset value");
     firstLineOffset = m_lines.size() - m_maxY + WASTED_SCREEN_LINES;
   }
 
   char snum[9];
-  logThis("MainScreen::show ==> firstLineOffset = ...");
+  LOG_THIS("MainScreen::show ==> firstLineOffset = ...");
   sprintf(snum, "%d", firstLineOffset);
-  logThis(snum);
-  logThis("MainScreen::show ==> m_maxY - WASTED_SCREEN_LINES = ...");
+  LOG_THIS(snum);
+  LOG_THIS("MainScreen::show ==> m_maxY - WASTED_SCREEN_LINES = ...");
   sprintf(snum, "%d", m_maxY - WASTED_SCREEN_LINES);
-  logThis(snum);
+  LOG_THIS(snum);
 
   for(int i = 1; i < m_maxY - WASTED_SCREEN_LINES + 1; i++)
   {
-     logThis("MainScreen::show ==> i + firstLineOffset - 1 = ...");
+     LOG_THIS("MainScreen::show ==> i + firstLineOffset - 1 = ...");
      sprintf(snum, "%d", i + firstLineOffset - 1);
-     logThis(snum);
-     logThis("MainScreen::show ==> m_lines[i + firstLineOffset - 1] = ...");
-     logThis(m_lines[i + firstLineOffset - 1].c_str());
+     LOG_THIS(snum);
+     LOG_THIS("MainScreen::show ==> m_lines[i + firstLineOffset - 1] = ...");
+     LOG_THIS(m_lines[i + firstLineOffset - 1].c_str());
 
      mvwprintw(stdscr, i, 1, m_lines[i + firstLineOffset - 1].c_str());
 
      if ((i + firstLineOffset - 1) == (((int) m_lines.size()) - 1))
      {
-				logThis("MainScreen::show ==> Last line displayed");
+				LOG_THIS("MainScreen::show ==> Last line displayed");
         break; // We are at the end of our buffer
      }
   }
 
-  logThis("MainScreen::show ==> Leaving");
+  LOG_THIS("MainScreen::show ==> Leaving");
 }
 
 void MainScreen::rebuild()
 {
+	LOG_THIS("MainScreen::rebuild ==> Entering");
   getmaxyx(stdscr, m_maxY, m_maxX); // Get the screen height & width
   clear(); // We repaint all the screen each time !
 	box(stdscr, ACS_VLINE, ACS_HLINE);
@@ -123,6 +147,7 @@ void MainScreen::rebuild()
 	show();
 	mvwprintw(stdscr, m_maxY - 2, 1, "USynth> ");
 	refresh();
+	LOG_THIS("MainScreen::rebuild ==> Leaving");
 }
 
 std::string MainScreen::readLine(char *buffer, int buflen)
@@ -161,6 +186,28 @@ std::string MainScreen::readLine(char *buffer, int buflen)
       {
         beep();
       }
+    }
+    else if (c == KEY_HOME)
+    {
+			if (pos > 0)
+			{
+				pos = 0;
+			}
+			else
+			{
+				beep();
+			}
+    }
+    else if (c == KEY_END)
+    {
+			if (pos < len)
+			{
+				pos = len;
+			}
+			else
+			{
+				beep();
+			}
     }
     else if (c == KEY_LEFT)
     {
@@ -218,10 +265,12 @@ std::string MainScreen::readLine(char *buffer, int buflen)
   buffer[len] = '\0';
   if (old_curs != ERR)
   {
+   /*
    for (int i = 0; i < len; i++)
    {
       mvaddch(y, x + i, ' ');
    }
+   */
    curs_set(old_curs);
 	}
 
@@ -230,21 +279,46 @@ std::string MainScreen::readLine(char *buffer, int buflen)
 
 void MainScreen::writeLine(const std::string &s)
 {
-	logThis("MainScreen::writeLine ==> Entering, s = ...");
-	logThis(s.c_str());
+	LOG_THIS("MainScreen::writeLine ==> Entering, s = ...");
+	LOG_THIS(s.c_str());
   char snum[9];
   sprintf(snum, "%d", (int) m_lines.size());
-  logThis(snum);
+  LOG_THIS(snum);
 
-  m_lines.push_back(s);
+  std::vector<std::string> tokens = split(s, "\n");
+  // Yet another lambda :) & means here "this", see :
+  // https://stackoverflow.com/questions/4940259/lambdas-require-capturing-this-to-call-static-member-function
+  auto push = [&](const std::string& token) { m_lines.push_back(token); LOG_THIS(token.c_str()); };
+  std::for_each(tokens.begin(), tokens.end(), push);
+
+  //m_lines.push_back(s);
 
   sprintf(snum, "%d", (int) m_lines.size());
-  logThis(snum);
+  LOG_THIS(snum);
 
-  if (m_lines.size() == OUTPUT_LINES_MAX)
+  // Needed ?
+  while (m_lines.size() > OUTPUT_LINES_MAX)
   {
-     scroll2();
+		LOG_THIS("MainScreen::writeLine ==> scrolling");
+    scroll2();
   }
 
-  logThis("MainScreen::writeLine ==> Leaving");
+  LOG_THIS("MainScreen::writeLine ==> Leaving");
+}
+
+bool YesNoDialog::execute(const std::string& message)
+{
+	//TODO: Finish and test this...
+	//WINDOW *dlg = newwin(3, 60, );
+	//mvwprintw(dlg, 1, 1, message.c_str());
+	//box(dlg, ACS_VLINE, ACS_HLINE);
+	refresh();
+
+	char c;
+	do
+		c = toupper(getch());
+	while (c == 'Y' || c == 'N');
+
+	//delwin(dlg);
+	return (c == 'Y');
 }

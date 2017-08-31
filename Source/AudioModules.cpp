@@ -68,11 +68,17 @@ int CaseSingleton::getSize()
 
 std::string CaseSingleton::dump()
 {
+	//std::string result = "toto\ntiti";
 	std::string result = "";
 
   for (const auto& kv : m_elements)
   {
-    join(result, kv.first + "=" + kv.second->dump());
+    join(result, kv.first + "=" + kv.second->dump(),"\n"); // Or use "," as delimiter ?
+	}
+
+	if (result.size() == 0)
+	{
+		result = "The case is still empty ! Use the ADD command to stuff it :)";
 	}
 
 	return result;
@@ -105,14 +111,14 @@ string AudioModule::dump()
   // for_each(m_ins.begin(), m_ins.end(), join(result, it*...second ? ))
   for (const auto& kv : m_ins)
   {
-    join(tmp, kv.first + '=' + kv.second);
+    join(tmp, kv.first + '=' + kv.second, ",");
 	}
 
 	result += tmp + ";OUT = ";
 	tmp = "";
   for (const auto& kv : m_outs)
   {
-    join(tmp, kv.first + '=' + kv.second);
+    join(tmp, kv.first + '=' + kv.second, ",");
 	}
 	return result + tmp;
 }

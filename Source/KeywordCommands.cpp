@@ -20,6 +20,7 @@ using namespace std;
 namespace
 {
 
+//TODO: Or move it to common stuff ?
 // Does not seem to belong to the standard...
 std::string string_upper(const std::string &s)
 {
@@ -39,17 +40,22 @@ bool KeywordCommand::process(std::string &what)
   if ((tokens[0] == "QUIT") or (tokens[0] == "EXIT"))
   {
     what = "";
-    return true; // Or false... Anyway we will break the main loop !
+    return true; // Or false... Anyway we must break the main loop !
   }
   else if ((tokens[0] == "LS") or (tokens[0] == "DIR"))
   {
-		//TODO: MainScreenSingleton CaseSingleton::getInstance().dump();
+		MainScreen::getInstance()->writeLine(CaseSingleton::getInstance()->dump());
     return true;
   }
   else if ((tokens[0] == "CLS") or (tokens[0] == "CLEAR"))
   {
-		//TODO: MainScreenSingleton.getInstance().clear();
+		MainScreen::getInstance()->clear2();
     return true;
+  }
+  else if ((tokens[0] == "?") or (tokens[0] == "HELP"))
+  {
+		MainScreen::getInstance()->writeLine("The known commands are :\nQUIT/EXIT : Leave USynth\nLS/DIR : List the case content\nCLS/CLEAR : Clear the screen and the command history");
+		return true;
   }
   else
   {

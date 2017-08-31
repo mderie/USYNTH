@@ -84,7 +84,7 @@ int main (int argc, char* argv[])
     //std::cout << "path = " << runningFolder() << std::endl;
 
     // Create here all the global objects (argh !-)
-    MainScreen ms;
+    //MainScreen ms;
 
     std::string s;
     ConfigurationFile cf(runningFolder() + string("/mapping.ini"));
@@ -102,8 +102,8 @@ int main (int argc, char* argv[])
     //Message msg;
     while (true)
     {
-      ms.rebuild();
-      ms.readLine(command, sizeof(command));
+      MainScreen::getInstance()->rebuild();
+      MainScreen::getInstance()->readLine(command, sizeof(command));
       s = string(command); // Back to C++ world...
 
 		  if (s.size() == 0)
@@ -113,16 +113,18 @@ int main (int argc, char* argv[])
 
 			if (!KeywordCommand::process(s))
 			{
-			  ms.writeLine("Unrecognized command : " + s);
+			  MainScreen::getInstance()->writeLine("Unrecognized command : " + s);
 				continue;
 			}
 			else if (s.size() == 0)
       {
-				break;
+        //TODO: Check first for unsaved stuff !!!
+				break; // Command known but still we have to leave :)
       }
     }
 
     // Unload stuff here... Destroy the singletons :)
+    MainScreen::getInstance()->~MainScreen();
 
     return 0;
 }
