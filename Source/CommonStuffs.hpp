@@ -5,6 +5,11 @@
 #include <string>
 #include <vector>
 
+// Source = http://www.cplusplus.com/forum/general/33669/
+template <typename T,unsigned u>
+inline unsigned arraySize(const T (&v)[u]) { return u; }
+
+std::string stringUpper(const std::string &s);
 void join(std::string &dest, const std::string &item, const std::string& delimiter); // Little string accumulator helper
 std::vector<std::string> split(const std::string& str, const std::string& delimiter); // Almost the opposite :)
 
@@ -22,6 +27,11 @@ public:
   virtual void load() = 0;
   virtual void save() = 0;
 };
+
+#define FOLDER_MODULES "modules"
+#define FOLDER_PROJECTS "projects"
+// #define FOLDER_CONFIGURATIONS ?
+// #define FOLDER_SAMPLES ?
 
 //T0D0: Move this ? Or rename it event ? ...
 class Command

@@ -9,7 +9,7 @@
 // Maybe should I try this : https://stackoverflow.com/questions/29556093/give-namespace-to-an-existing-library-in-c
 //namespace curses
 //{
-#include <ncurses.h>
+#include <curses.h>
 //}
 
 // Some C headers that goes with ncurses... And my primitive logger
@@ -308,17 +308,21 @@ void MainScreen::writeLine(const std::string &s)
 
 bool YesNoDialog::execute(const std::string& message)
 {
-	//TODO: Finish and test this...
-	//WINDOW *dlg = newwin(3, 60, );
-	//mvwprintw(dlg, 1, 1, message.c_str());
-	//box(dlg, ACS_VLINE, ACS_HLINE);
-	refresh();
+
+	int maxY, maxX;
+	getmaxyx(stdscr, maxY, maxX);
+
+	//TODO: Check message length and that we have enough space !
+	WINDOW *dlg = newwin(3, message.size() + 4, (maxY - 3) / 2, (maxX - message.size() - 4) / 2);
+	mvwprintw(dlg, 1, 2, message.c_str());
+	box(dlg, ACS_VLINE, ACS_HLINE);
+	wrefresh(dlg);
 
 	char c;
 	do
 		c = toupper(getch());
-	while (c == 'Y' || c == 'N');
+	while (c != 'Y' and c != 'N');
 
-	//delwin(dlg);
+	delwin(dlg);
 	return (c == 'Y');
 }

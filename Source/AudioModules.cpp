@@ -5,6 +5,42 @@
 
 using namespace std;
 
+AudioModule* CreateModuleFactory(Kind kind)
+{
+ switch (kind)
+ {
+   case Kind::LFO :
+   case Kind::VCO :
+   case Kind::VCF :
+   case Kind::VCA : { return nullptr; }
+   case Kind::RND : return new WhiteNoise();
+   case Kind::DUP :
+   case Kind::ENV :
+   case Kind::ADD :
+   case Kind::SUB :
+   case Kind::AND :
+   case Kind::MIX :
+   case Kind::NOT :
+   case Kind::PAN :
+   case Kind::OUT : return nullptr;
+   default: return nullptr;
+  }
+}
+
+Kind moduleKind(const std::string &s)
+{
+  // No std::find for classical array ?
+  for (unsigned i = 0; i < arraySize(Kinds); i++)
+  {
+		if (stringUpper(s) == Kinds[i])
+		{
+			return (Kind) i;
+		}
+  }
+
+  return Kind::LAST_ITEM;
+}
+
 /*
 CaseSingleton::CaseSingleton()
 {
@@ -133,7 +169,7 @@ WhiteNoise::WhiteNoise()
   // No ! Rookie error, it is not heap allocated !
   //m_ins = new dico();
 
-  m_kind = Kind::RND;
+  m_kind = Kind::RND; //TODO: Check if we have a 1-to-1 mapping between module kind and AudioModule subclass !
   m_outs["OUT"] = "";
 }
 

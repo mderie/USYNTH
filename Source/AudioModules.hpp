@@ -19,8 +19,11 @@
 #endif
 
 // Don't use LAST_ITEM, it is a trick :)
+//TODO: Remove CBL ? In order to keep only modules ?
 enum class Kind { CBL, LFO, VCO, VCF, VCA, RND, DUP, ENV, ADD, SUB, AND, MIX, NOT, PAN, OUT, LAST_ITEM }; // With the NOT maybe we don't need the SUB ?
 const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "VCA", "RND", "DUP", "ENV", "ADD", "SUB", "AND", "MIX", "NOT", "PAN", "OUT" };
+
+Kind moduleKind(const std::string &s);
 
 // class Knob ?
 
@@ -37,7 +40,7 @@ public:
 };
 
 // The case sole instance
-class CaseSingleton : public IAmDumpable
+class CaseSingleton : public IAmDumpable //TODO: , IAMPersistent
 {
 private:
   std::map<std::string, CaseElement*> m_elements; // Tuple <element.id, element*>
@@ -66,8 +69,12 @@ typedef std::map<std::string, std::string> Dico;
 typedef std::map<std::string, std::string>::const_iterator DicocIt;
 const int LOOP_COUNTER_MAX = 10;
 
+// Describe out's and ins min, max ?
+
+// class POT ?
+
 // Base class for all audio modules...
-class AudioModule : public CaseElement
+class AudioModule : public CaseElement //TODO: , IAMPersistent
 {
 protected:
   Dico m_ins;
@@ -80,6 +87,8 @@ public:
   std::string dump() override;
   //TODO: Check if others need to access ins & outs...
 };
+
+AudioModule* CreateModuleFactory(Kind kind);
 
 class WhiteNoise : public AudioModule
 {

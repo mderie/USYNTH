@@ -17,6 +17,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+/*
 #ifdef WIN32
 #include <curses.h> //TODO: Check name ! ==> Done, same name :)
 // Source : https://stackoverflow.com/questions/31821159/compile-simple-c-code-in-visual-studio-2013
@@ -26,6 +27,7 @@
 #include <curses.h>
 #include <unistd.h> // For sleep()
 #endif
+*/
 
 #ifdef WIN32 // Don't use WINDOWS !
 #include <direct.h>
@@ -57,7 +59,7 @@ std::string runningFolder()
 // ...
 
 //TODO: Fine tune this list of prj include...
-#include "LaunchpadPrimitives.hpp"
+#include "LaunchpadPrimitives.hpp" // To be replaced by BCR20000 !
 #include "AudioBuffers.hpp"
 #include "AudioModules.hpp"
 #include "KeywordCommands.hpp"
@@ -86,6 +88,7 @@ int main (int argc, char* argv[])
     // Create here all the global objects (argh !-)
     //MainScreen ms;
 
+    //TODO: Review this !
     std::string s;
     ConfigurationFile cf(runningFolder() + string("/mapping.ini"));
 
@@ -118,8 +121,11 @@ int main (int argc, char* argv[])
 			}
 			else if (s.size() == 0)
       {
-        //TODO: Check first for unsaved stuff !!!
-				break; // Command known but still we have to leave :)
+				if (YesNoDialog::execute("Do you really want to leave (y/n) ?"))
+				{
+					//TODO: Check first for unsaved stuff !!!
+					break; // Command known but still we have to leave :)
+				}
       }
     }
 

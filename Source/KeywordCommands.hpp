@@ -6,7 +6,7 @@
 
 //TODO: Support the following ones.
 // ls (dir), patch (link?), exit (quit), add (?), edit (change? modify), remove (delete)
-// load (?), save (?), assfun, describe (dump), about (?)
+// load (?), save (?), assfun !, describe (dump), about (?), copy (?), play (?), stop (?)
 
 // Base class for all keyword commands...
 class KeywordCommand

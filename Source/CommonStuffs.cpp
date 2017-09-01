@@ -1,6 +1,15 @@
 
 #include "CommonStuffs.hpp"
 
+#include <algorithm>
+
+std::string stringUpper(const std::string &s)
+{
+  std::string result(s.size(), 0);
+  std::transform(s.begin(), s.end(), result.begin(), [] (unsigned char c) { return toupper(c); } ); // Yes a lambda :)
+  return result;
+}
+
 void join(std::string &dest, const std::string &item, const std::string &delimiter)
 {
 	if (dest.size() >= 0)

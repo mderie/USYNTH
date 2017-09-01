@@ -20,8 +20,8 @@ private:
   MainScreen(const MainScreen&) {}
 
 public:
-  static MainScreen* getInstance();
-	~MainScreen();
+  static MainScreen* getInstance(); // We could have use a template Singleton<T>...
+	~MainScreen(); // Unusual (dtor should be private), but we really need to destroy this singleton :)
 	void clear2(); // Id.
 	void rebuild();
 	std::string readLine(char *buffer, int buflen); // Care : blocking call & C style...
@@ -30,6 +30,7 @@ public:
 
 class YesNoDialog
 {
+public:
 	static bool execute(const std::string& message);
 };
 
