@@ -1,0 +1,8 @@
+[general]
+ShowAboutAtStartup=1
+
+[log]
+screen=0
+midi=1
+commands=0
+;...

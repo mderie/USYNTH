@@ -8,6 +8,8 @@
 // ls (dir), patch (link?), exit (quit), add (?), edit (change? modify), remove (delete)
 // load (?), save (?), assfun !, describe (dump), about (?), copy (?), play (?), stop (?)
 
+//TODO: Road to the tracker : sendnote (?)
+
 // Base class for all keyword commands...
 class KeywordCommand
 {

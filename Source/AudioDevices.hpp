@@ -14,4 +14,8 @@ public:
   void getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill) override;
 };
 
+//TODO: Put here a special singleton "OUT" module ?
+
+//TODO: Iterate and log eventually the audio input devices seen by JUCE !
+
 #endif // AUDIO_DEVICES

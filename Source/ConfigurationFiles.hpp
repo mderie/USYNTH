@@ -9,6 +9,7 @@
 //TODO: Split this into a mapper and a configuration file reader !
 
 // Base class for all configuration files...
+//TODO: Implement default value and section support
 class ConfigurationFile
 {
 private:
@@ -21,7 +22,12 @@ public:
 
 class GlobalConfigurationSingleton : public ConfigurationFile
 {
-//TODO
+private:
+  static GlobalConfigurationSingleton *s_instance;
+  GlobalConfigurationSingleton();
+  //GlobalConfigurationSingleton(const GlobalConfigurationSingleton &) {}
+public:
+  static GlobalConfigurationSingleton *getInstance();
 };
 
 class MidiConfigurationSingleton : public ConfigurationFile

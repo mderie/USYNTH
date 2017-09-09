@@ -12,9 +12,6 @@
 #include <iostream>
 #include <string>
 
-// Defined in the upcoming C++ 17 standard
-// #include <filesystem>
-
 #include "../JuceLibraryCode/JuceHeader.h"
 
 /*
@@ -28,28 +25,6 @@
 #include <unistd.h> // For sleep()
 #endif
 */
-
-#ifdef WIN32 // Don't use WINDOWS !
-#include <direct.h>
-#define GetCurrentDir _getcwd
-#else
-#include <unistd.h>
-#define GetCurrentDir getcwd
-#endif
-
-// No real standard c++ to do this...
-std::string runningFolder()
-{
-	char cCurrentPath[FILENAME_MAX];
-
-	if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath)))
-	{
-		return ".";
-	}
-
-	cCurrentPath[sizeof(cCurrentPath) - 1] = '\0'; /* not really required */
-	return std::string(cCurrentPath);
-}
 
 // Sources of inspiration
 //
@@ -72,65 +47,69 @@ std::string runningFolder()
 #include "AudioDevices.hpp"
 
 // To be removed ?
-using namespace std;
+//using namespace std;
 
 //==============================================================================
 int main (int argc, char* argv[])
 {
-	char command[255] = ""; // I'm too lazy to convert ncurses char * based code...
+	//TODO: Log "Starting a new session"
 
     // std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
-
-    // C++17 only
-    //std::string path = std::filesystem::current_path();
-    //std::cout << "path = " << runningFolder() << std::endl;
 
     // Create here all the global objects (argh !-)
     //MainScreen ms;
 
+    //if (GlobalConfigurationSingleton::getInstance()->getKeyValue("ShowAboutAtStartup") == "1")
+    //{
     //TODO: Review this !
-    std::string s;
-    ConfigurationFile cf(runningFolder() + string("/mapping.ini"));
+		//	MainScreenSingleton::getInstance()->writeLine("TODO...");
+    //}
 
     //ConfigurationFile ?;
 
     /*
-    auto keys = cf.getKeys(); // I'm so lzay :)
+    auto keys = cf.getKeys(); // I'm so lazy :)
     if (std::find(keys.begin(), keys.end(), "ROTC11") != keys.end())
     {
 			std::cout << "Found key = ROTC11 with value" << cf.getKeyValue("ROTC11") << std::endl;
     }
     */
 
-    //Message msg;
+    //TODO: Log "Starting the main loop"
+
+		std::string s;
+		char command[255] = ""; // I'm too lazy to convert ncurses char * based code...
     while (true)
     {
-      MainScreen::getInstance()->rebuild();
-      MainScreen::getInstance()->readLine(command, sizeof(command));
-      s = string(command); // Back to C++ world...
+      MainScreenSingleton::getInstance()->rebuild();
+      MainScreenSingleton::getInstance()->readLine(command, sizeof(command));
+      s = std::string(command); // Back to C++ world...
 
 		  if (s.size() == 0)
 		  {
-				continue; // Easy case : empty command...
+				continue; // Easy case : empty command... Skip it !
 		  }
 
 			if (!KeywordCommand::process(s))
 			{
-			  MainScreen::getInstance()->writeLine("Unrecognized command : " + s);
+			  MainScreenSingleton::getInstance()->writeLine("Unrecognized command : " + s);
 				continue;
 			}
 			else if (s.size() == 0)
       {
+				// Special case were process() clear provided the command
 				if (YesNoDialog::execute("Do you really want to leave (y/n) ?"))
 				{
 					//TODO: Check first for unsaved stuff !!!
 					break; // Command known but still we have to leave :)
 				}
       }
-    }
+    } // while(true)
 
     // Unload stuff here... Destroy the singletons :)
-    MainScreen::getInstance()->~MainScreen();
+	MainScreenSingleton::getInstance()->~MainScreenSingleton();
 
-    return 0;
+	//TODO: Log "Stopping  a new session"
+
+	return 0;
 }

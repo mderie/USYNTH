@@ -1,0 +1,4 @@
+[modules]
+VCO
+[patches]
+VCO.SIN=OUT.L

@@ -3,34 +3,32 @@
 
 #include <limits>
 
-using namespace std;
-
 AudioModule* CreateModuleFactory(Kind kind)
 {
- switch (kind)
- {
-   case Kind::LFO :
-   case Kind::VCO :
-   case Kind::VCF :
-   case Kind::VCA : { return nullptr; }
-   case Kind::RND : return new WhiteNoise();
-   case Kind::DUP :
-   case Kind::ENV :
-   case Kind::ADD :
-   case Kind::SUB :
-   case Kind::AND :
-   case Kind::MIX :
-   case Kind::NOT :
-   case Kind::PAN :
-   case Kind::OUT : return nullptr;
-   default: return nullptr;
-  }
+	switch (kind)
+	{
+		case Kind::LFO :
+		case Kind::VCO : //TODO: You are the next one !-)
+		case Kind::VCF :
+		case Kind::VCA : { return nullptr; }
+		case Kind::RND : return new WhiteNoise();
+		case Kind::DUP :
+		case Kind::ENV :
+		case Kind::ADD :
+		case Kind::SUB :
+		case Kind::AND :
+		case Kind::MIX :
+		case Kind::NOT :
+		case Kind::PAN :
+		case Kind::OUT : return nullptr;
+		default: return nullptr;
+	}
 }
 
 Kind moduleKind(const std::string &s)
 {
   // No std::find for classical array ?
-  for (unsigned i = 0; i < arraySize(Kinds); i++)
+  for (unsigned i = 0; i < sizeOfArray(Kinds); i++)
   {
 		if (stringUpper(s) == Kinds[i])
 		{
@@ -54,11 +52,6 @@ CaseSingleton::~CaseSingleton()
 */
 CaseSingleton* CaseSingleton::s_instance = nullptr;
 
-string CaseElement::dump()
-{
-	return Kinds[(int) m_kind] + '_' + m_id;
-}
-
 CaseSingleton* CaseSingleton::getInstance()
 {
 	if (s_instance == nullptr)
@@ -67,6 +60,11 @@ CaseSingleton* CaseSingleton::getInstance()
 	}
 
 	return s_instance;
+}
+
+std::string CaseElement::dump()
+{
+	return Kinds[(int) m_kind] + '_' + m_id;
 }
 
 void CaseSingleton::clear()
@@ -140,10 +138,10 @@ AudioModule::AudioModule()
   reset();
 }
 
-string AudioModule::dump()
+std::string AudioModule::dump()
 {
-	string result = "IN = ";
-	string tmp = "";
+	std::string result = "IN = ";
+	std::string tmp = "";
   // for_each(m_ins.begin(), m_ins.end(), join(result, it*...second ? ))
   for (const auto& kv : m_ins)
   {
@@ -187,7 +185,7 @@ NinjaStar::NinjaStar()
   m_outs["OUT_3"] = "";
   m_outs["OUT_4"] = "";
   m_outs["OUT_5"] = "";
-  m_loop_counter_max = numeric_limits<int>::max(); // There is no limit !-)
+  m_loop_counter_max = std::numeric_limits<int>::max(); // There is no limit !-)
 }
 
 NinjaStar::~NinjaStar()

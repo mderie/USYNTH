@@ -7,21 +7,21 @@
 
 // If there are multiple screens, just create a base class with "void show();"
 
-class MainScreen
+class MainScreenSingleton
 {
 private:
-	static MainScreen *s_instance;
+	static MainScreenSingleton *s_instance;
 	std::vector<std::string> m_lines;
 	int m_maxX, m_maxY; // Screen resolution
 	void scroll2(); // Care : name clash with curses !
 	void show();
 
-  MainScreen();
-  MainScreen(const MainScreen&) {}
+  MainScreenSingleton();
+  MainScreenSingleton(const MainScreenSingleton &) {}
 
 public:
-  static MainScreen* getInstance(); // We could have use a template Singleton<T>...
-	~MainScreen(); // Unusual (dtor should be private), but we really need to destroy this singleton :)
+  static MainScreenSingleton *getInstance(); // We could have use a template Singleton<T>...
+	~MainScreenSingleton(); // Unusual (dtor should be private), but we really need to destroy this singleton :)
 	void clear2(); // Id.
 	void rebuild();
 	std::string readLine(char *buffer, int buflen); // Care : blocking call & C style...

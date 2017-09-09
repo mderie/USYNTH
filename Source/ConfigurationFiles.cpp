@@ -3,6 +3,20 @@
 #include <fstream>
 
 #include "ConfigurationFiles.hpp"
+#include "CommonStuffs.hpp"
+
+GlobalConfigurationSingleton *GlobalConfigurationSingleton::s_instance = nullptr;
+
+GlobalConfigurationSingleton *GlobalConfigurationSingleton::getInstance()
+{
+	if (s_instance == nullptr)
+	{
+	  // Unusual : one singleton per generalized configiguration file...
+		s_instance = (GlobalConfigurationSingleton *) (new ConfigurationFile(appendPath({ runningFolder(), folders[(int) folder::configurations], "global.sex" })));
+	}
+
+	return s_instance;
+}
 
 ConfigurationFile::ConfigurationFile(const std::string &filename)
 {
