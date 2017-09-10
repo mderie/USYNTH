@@ -42,7 +42,7 @@ void logThis(const char *what)
 */
 
 MainScreenSingleton *MainScreenSingleton::s_instance = nullptr;
-MainScreenSingleton *MainScreenSingleton::getInstance()
+MainScreenSingleton *MainScreenSingleton::instance()
 {
 	if (s_instance == nullptr)
 	{
@@ -69,10 +69,10 @@ MainScreenSingleton::~MainScreenSingleton()
 
 void MainScreenSingleton::scroll2()
 {
-	logThis("MainScreenSingleton::scroll2 ==> Entering", target::screen);
+	logThis("MainScreenSingleton::scroll2 ==> Entering", Target::screen);
   if (m_lines.size() == 0)
   {
-		logThis("MainScreenSingleton::scroll2 ==> Leaving : Nothing to do !", target::screen);
+		logThis("MainScreenSingleton::scroll2 ==> Leaving : Nothing to do !", Target::screen);
     return;
   }
 
@@ -81,24 +81,24 @@ void MainScreenSingleton::scroll2()
     m_lines[i - 1] = m_lines[i];
   }
 
-  logThis("MainScreenSingleton::scroll2 ==> Boum next line ?", target::screen);
+  logThis("MainScreenSingleton::scroll2 ==> Boum next line ?", Target::screen);
   m_lines.erase(m_lines.end());
-  logThis("MainScreenSingleton::scroll2 ==> Leaving", target::screen);
+  logThis("MainScreenSingleton::scroll2 ==> Leaving", Target::screen);
 }
 
 void MainScreenSingleton::clear2()
 {
-	logThis("MainScreenSingleton::clear2 ==> Entering", target::screen);
+	logThis("MainScreenSingleton::clear2 ==> Entering", Target::screen);
   m_lines.clear();
-  logThis("MainScreenSingleton::clear2 ==> Leaving", target::screen);
+  logThis("MainScreenSingleton::clear2 ==> Leaving", Target::screen);
 }
 
 void MainScreenSingleton::show()
 {
-	logThis("MainScreenSingleton::show ==> Entering", target::screen);
+	logThis("MainScreenSingleton::show ==> Entering", Target::screen);
 	if (m_lines.size() == 0)
   {
-		logThis("MainScreenSingleton::show ==> Leaving : Nothing to do !", target::screen);
+		logThis("MainScreenSingleton::show ==> Leaving : Nothing to do !", Target::screen);
     return;
   }
 
@@ -106,41 +106,41 @@ void MainScreenSingleton::show()
   // Except if we have more lines in the buffer than the screen
   if ((int) m_lines.size() > m_maxY - WASTED_SCREEN_LINES)
   {
-    logThis("MainScreen::show ==> Correcting firstLineOffset value", target::screen);
+    logThis("MainScreen::show ==> Correcting firstLineOffset value", Target::screen);
     firstLineOffset = m_lines.size() - m_maxY + WASTED_SCREEN_LINES;
   }
 
   char snum[9];
-  logThis("MainScreen::show ==> firstLineOffset = ...", target::screen);
+  logThis("MainScreen::show ==> firstLineOffset = ...", Target::screen);
   sprintf(snum, "%d", firstLineOffset);
-  logThis(snum, target::screen);
-  logThis("MainScreen::show ==> m_maxY - WASTED_SCREEN_LINES = ...", target::screen);
+  logThis(snum, Target::screen);
+  logThis("MainScreen::show ==> m_maxY - WASTED_SCREEN_LINES = ...", Target::screen);
   sprintf(snum, "%d", m_maxY - WASTED_SCREEN_LINES);
-  logThis(snum, target::screen);
+  logThis(snum, Target::screen);
 
   for(int i = 1; i < m_maxY - WASTED_SCREEN_LINES + 1; i++)
   {
-     logThis("MainScreen::show ==> i + firstLineOffset - 1 = ...", target::screen);
+     logThis("MainScreen::show ==> i + firstLineOffset - 1 = ...", Target::screen);
      sprintf(snum, "%d", i + firstLineOffset - 1);
-     logThis(snum, target::screen);
-     logThis("MainScreen::show ==> m_lines[i + firstLineOffset - 1] = ...", target::screen);
-     logThis(m_lines[i + firstLineOffset - 1].c_str(), target::screen);
+     logThis(snum, Target::screen);
+     logThis("MainScreen::show ==> m_lines[i + firstLineOffset - 1] = ...", Target::screen);
+     logThis(m_lines[i + firstLineOffset - 1].c_str(), Target::screen);
 
      mvwprintw(stdscr, i, 1, m_lines[i + firstLineOffset - 1].c_str());
 
      if ((i + firstLineOffset - 1) == (((int) m_lines.size()) - 1))
      {
-				logThis("MainScreen::show ==> Last line displayed", target::screen);
+				logThis("MainScreen::show ==> Last line displayed", Target::screen);
         break; // We are at the end of our buffer
      }
   }
 
-  logThis("MainScreen::show ==> Leaving", target::screen);
+  logThis("MainScreen::show ==> Leaving", Target::screen);
 }
 
 void MainScreenSingleton::rebuild()
 {
-	logThis("MainScreenSingleton::rebuild ==> Entering", target::screen);
+	logThis("MainScreenSingleton::rebuild ==> Entering", Target::screen);
   getmaxyx(stdscr, m_maxY, m_maxX); // Get the screen height & width
   clear(); // We repaint all the screen each time !
 	box(stdscr, ACS_VLINE, ACS_HLINE);
@@ -149,7 +149,7 @@ void MainScreenSingleton::rebuild()
 	show();
 	mvwprintw(stdscr, m_maxY - 2, 1, "USynth> ");
 	refresh();
-	logThis("MainScreenSingleton::rebuild ==> Leaving", target::screen);
+	logThis("MainScreenSingleton::rebuild ==> Leaving", Target::screen);
 }
 
 std::string MainScreenSingleton::readLine(char *buffer, int buflen)
@@ -281,31 +281,31 @@ std::string MainScreenSingleton::readLine(char *buffer, int buflen)
 
 void MainScreenSingleton::writeLine(const std::string &s)
 {
-	logThis("MainScreenSingleton::writeLine ==> Entering, s = ...", target::screen);
-	logThis(s.c_str(), target::screen);
+	logThis("MainScreenSingleton::writeLine ==> Entering, s = ...", Target::screen);
+	logThis(s.c_str(), Target::screen);
   char snum[9];
   sprintf(snum, "%d", (int) m_lines.size());
-  logThis(snum, target::screen);
+  logThis(snum, Target::screen);
 
   std::vector<std::string> tokens = split(s, "\n");
   // Yet another lambda :) "&" means here "this", see :
   // https://stackoverflow.com/questions/4940259/lambdas-require-capturing-this-to-call-static-member-function
-  auto push = [&](const std::string& token) { m_lines.push_back(token); logThis(token.c_str(), target::screen); };
+  auto push = [&](const std::string& token) { m_lines.push_back(token); logThis(token.c_str(), Target::screen); };
   std::for_each(tokens.begin(), tokens.end(), push);
 
   //m_lines.push_back(s);
 
   sprintf(snum, "%d", (int) m_lines.size());
-  logThis(snum, target::screen);
+  logThis(snum, Target::screen);
 
   // Needed ?
   while (m_lines.size() > OUTPUT_LINES_MAX)
   {
-		logThis("MainScreenSingleton::writeLine ==> scrolling", target::screen);
+		logThis("MainScreenSingleton::writeLine ==> scrolling", Target::screen);
     scroll2();
   }
 
-  logThis("MainScreenSingleton::writeLine ==> Leaving", target::screen);
+  logThis("MainScreenSingleton::writeLine ==> Leaving", Target::screen);
 }
 
 bool YesNoDialog::execute(const std::string& message)

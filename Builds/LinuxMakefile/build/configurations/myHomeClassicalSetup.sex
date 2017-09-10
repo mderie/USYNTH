@@ -1,0 +1,9 @@
+[midi]
+
+NoteInputKind=keyboard
+
+; Use the JUCE device name
+NoteInputDevice="ArturiaKeystep"
+
+; JUCE device name & .ini filename
+OtherInputDevice="BehringerBcr2000"

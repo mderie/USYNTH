@@ -3,6 +3,8 @@
 #include "ConfigurationFiles.hpp"
 
 #include <algorithm>
+#include <iostream>
+#include <ctime>
 
 // C++17 only : defined in the upcoming C++ 17 standard
 // #include <filesystem>
@@ -55,6 +57,9 @@ std::string appendPath(const std::vector<std::string> &pieces)
 		}
 	}
 
+	//std::cout << "result = " << result << std::endl;
+	result.erase(result.end()-1); // Remove the trailing path separator :-)
+	//std::cout << "result2 = " << result << std::endl;
 	return result;
 }
 
@@ -91,16 +96,25 @@ std::vector<std::string> split(const std::string& str, const std::string& delimi
     return result;
 }
 
-void logThis(const char *s, target t)
+void logThis(const char *s, Target t)
 {
-  if (GlobalConfigurationSingleton::getInstance()->getKeyValue(targets[(int) t]) == "0")
+  if (GlobalConfigurationSingleton::instance()->getKeyValue(targets[(int) t]) == "0")
   {
 		return;
   }
 
-  std::string fullFilename = appendPath({ runningFolder(), folders[(int) folder::logs], targets[(int) t] }) + ".log";
+	time_t rawtime;
+  struct tm* timeinfo;
+  char timestamp[32]; // Sure there is more C++ way to do this...
+
+  time (&rawtime);
+  timeinfo = localtime(&rawtime);
+  strftime(timestamp, sizeof(timestamp), "%d-%m-%Y %H:%M:%S", timeinfo);
+
+  std::string fullFilename = appendPath({ runningFolder(), folders[(int) Folder::logs], targets[(int) t] }) + ".log";
+  //std::cout << "fullFilename = " << fullFilename << std::endl;
   FILE *fLog = fopen(fullFilename.c_str(), "a");
-  fprintf(fLog, "%s\n", s);
+  fprintf(fLog, "%s => %s\n", timestamp, s);
   fclose(fLog);
 }
 

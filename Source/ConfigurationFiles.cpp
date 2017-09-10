@@ -5,19 +5,6 @@
 #include "ConfigurationFiles.hpp"
 #include "CommonStuffs.hpp"
 
-GlobalConfigurationSingleton *GlobalConfigurationSingleton::s_instance = nullptr;
-
-GlobalConfigurationSingleton *GlobalConfigurationSingleton::getInstance()
-{
-	if (s_instance == nullptr)
-	{
-	  // Unusual : one singleton per generalized configiguration file...
-		s_instance = (GlobalConfigurationSingleton *) (new ConfigurationFile(appendPath({ runningFolder(), folders[(int) folder::configurations], "global.sex" })));
-	}
-
-	return s_instance;
-}
-
 ConfigurationFile::ConfigurationFile(const std::string &filename)
 {
 	std::ifstream ifs;
@@ -59,4 +46,22 @@ std::vector<std::string> ConfigurationFile::getKeys()
 std::string ConfigurationFile::getKeyValue(const std::string &key)
 {
 	return m_dic[key];
+}
+
+/////////////////////// GlobalConfigurationSingleton ///////////////////////
+
+GlobalConfigurationSingleton *GlobalConfigurationSingleton::s_instance = nullptr;
+
+GlobalConfigurationSingleton *GlobalConfigurationSingleton::instance()
+{
+	if (s_instance == nullptr)
+	{
+	  // Unusual :p One singleton per "generalized" configuration file...
+	  std::string fullFilename = appendPath({ runningFolder(), folders[(int) Folder::configurations], "global.sex" });
+	  //std::cout << "fullFilename = " << fullFilename << std::endl;
+
+		s_instance = (GlobalConfigurationSingleton *) (new ConfigurationFile(fullFilename));
+	}
+
+	return s_instance;
 }

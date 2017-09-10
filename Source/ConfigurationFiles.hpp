@@ -27,7 +27,7 @@ private:
   GlobalConfigurationSingleton();
   //GlobalConfigurationSingleton(const GlobalConfigurationSingleton &) {}
 public:
-  static GlobalConfigurationSingleton *getInstance();
+  static GlobalConfigurationSingleton *instance();
 };
 
 class MidiConfigurationSingleton : public ConfigurationFile

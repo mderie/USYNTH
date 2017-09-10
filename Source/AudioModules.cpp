@@ -2,28 +2,7 @@
 #include "AudioModules.hpp"
 
 #include <limits>
-
-AudioModule* CreateModuleFactory(Kind kind)
-{
-	switch (kind)
-	{
-		case Kind::LFO :
-		case Kind::VCO : //TODO: You are the next one !-)
-		case Kind::VCF :
-		case Kind::VCA : { return nullptr; }
-		case Kind::RND : return new WhiteNoise();
-		case Kind::DUP :
-		case Kind::ENV :
-		case Kind::ADD :
-		case Kind::SUB :
-		case Kind::AND :
-		case Kind::MIX :
-		case Kind::NOT :
-		case Kind::PAN :
-		case Kind::OUT : return nullptr;
-		default: return nullptr;
-	}
-}
+#include <algorithm>
 
 Kind moduleKind(const std::string &s)
 {
@@ -39,20 +18,23 @@ Kind moduleKind(const std::string &s)
   return Kind::LAST_ITEM;
 }
 
-/*
-CaseSingleton::CaseSingleton()
+/////////////////////// CaseElement ///////////////////////
+
+std::string CaseElement::dump()
 {
-  // ?
+	return Kinds[(int) m_kind] + '_' + m_id;
 }
 
-CaseSingleton::~CaseSingleton()
+CaseElement::~CaseElement()
 {
-  clear();
+// Strange he ? See http://www.geeksforgeeks.org/pure-virtual-destructor-c/
 }
-*/
+
+/////////////////////// CaseSingleton ///////////////////////
+
 CaseSingleton* CaseSingleton::s_instance = nullptr;
 
-CaseSingleton* CaseSingleton::getInstance()
+CaseSingleton* CaseSingleton::instance()
 {
 	if (s_instance == nullptr)
 	{
@@ -62,13 +44,23 @@ CaseSingleton* CaseSingleton::getInstance()
 	return s_instance;
 }
 
-std::string CaseElement::dump()
+CaseSingleton::~CaseSingleton()
 {
-	return Kinds[(int) m_kind] + '_' + m_id;
+  clear();
 }
 
+// See : https://stackoverflow.com/questions/6353149/does-vectorerase-on-a-vector-of-object-pointers-destroy-the-object-itself
 void CaseSingleton::clear()
 {
+  // Doesn't compile...
+  // std::for_each(m_elements.begin(), m_elements.end(), delete);
+
+  // Does not infer the good type ?
+  //for (auto item : m_elements) delete item->second();
+  for (auto cIter = m_elements.cbegin(); cIter != m_elements.cend(); cIter++)
+  {
+     delete cIter->second;
+  }
   m_elements.clear();
 }
 
@@ -81,9 +73,10 @@ void CaseSingleton::add(CaseElement* element)
 void CaseSingleton::del(CaseElement* element)
 {
   m_elements.erase(element->getId());
+  delete element;
 }
 
-CaseElement* CaseSingleton::getElement(const std::string& id)
+CaseElement* CaseSingleton::element(const std::string& id)
 {
   if (m_elements.find(id) == m_elements.end())
   {
@@ -95,7 +88,7 @@ CaseElement* CaseSingleton::getElement(const std::string& id)
   }
 }
 
-int CaseSingleton::getSize()
+int CaseSingleton::size()
 {
   return m_elements.size();
 }
@@ -132,6 +125,30 @@ const std::string& CaseSingleton::getId(int index)
 }
 */
 
+/////////////////////// AudioModule ///////////////////////
+
+AudioModule* CreateModuleFactory(Kind kind)
+{
+	switch (kind)
+	{
+		case Kind::LFO :
+		case Kind::VCO : //TODO: You are the next one !-)
+		case Kind::VCF :
+		case Kind::VCA : { return nullptr; }
+		case Kind::RND : return new WhiteNoise();
+		case Kind::DUP :
+		case Kind::ENV :
+		case Kind::ADD :
+		case Kind::SUB :
+		case Kind::AND :
+		case Kind::MIX :
+		case Kind::NOT :
+		case Kind::PAN :
+		case Kind::OUT : return nullptr;
+		default: return nullptr;
+	}
+}
+
 AudioModule::AudioModule()
 {
   m_loop_counter_max = LOOP_COUNTER_MAX;
@@ -162,6 +179,22 @@ void AudioModule::reset()
   m_loop_counter = 0;
 }
 
+/////////////////////// OutModule ///////////////////////
+
+OutModule::OutModule()
+{
+	m_kind = Kind::OUT;
+  m_ins["L"] = "";
+  m_ins["R"] = "";
+}
+
+OutModule::~OutModule()
+{
+//TODO: Needed ?
+}
+
+/////////////////////// WhiteNoise ///////////////////////
+
 WhiteNoise::WhiteNoise()
 {
   // No ! Rookie error, it is not heap allocated !
@@ -175,6 +208,8 @@ WhiteNoise::~WhiteNoise()
 {
   //TODO: Needed ?
 }
+
+/////////////////////// NinjaStar ///////////////////////
 
 NinjaStar::NinjaStar()
 {
@@ -192,6 +227,8 @@ NinjaStar::~NinjaStar()
 {
   //TODO: Needed ?
 }
+
+/////////////////////// PatchCable ///////////////////////
 
 PatchCable::PatchCable()
 {

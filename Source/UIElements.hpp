@@ -20,8 +20,8 @@ private:
   MainScreenSingleton(const MainScreenSingleton &) {}
 
 public:
-  static MainScreenSingleton *getInstance(); // We could have use a template Singleton<T>...
-	~MainScreenSingleton(); // Unusual (dtor should be private), but we really need to destroy this singleton :)
+  static MainScreenSingleton *instance(); // We could have use a template Singleton<T>...
+	~MainScreenSingleton(); // Unusual (dtor should be private), but we really need to destroy what was allocated inside the ctor :)
 	void clear2(); // Id.
 	void rebuild();
 	std::string readLine(char *buffer, int buflen); // Care : blocking call & C style...

@@ -22,10 +22,7 @@
 //TODO: Remove CBL ? In order to keep only modules ?
 enum class Kind { CBL, LFO, VCO, VCF, VCA, RND, DUP, ENV, ADD, SUB, AND, MIX, NOT, PAN, OUT, LAST_ITEM }; // With the NOT maybe we don't need the SUB ?
 const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "VCA", "RND", "DUP", "ENV", "ADD", "SUB", "AND", "MIX", "NOT", "PAN", "OUT" };
-
-Kind moduleKind(const std::string &s);
-
-// class Knob ?
+Kind moduleKind(const std::string &s); // Could it be templatized ?
 
 // Base class for all elements in a case (cable and module)
 class CaseElement : public IAmDumpable
@@ -34,6 +31,7 @@ protected:
   Kind m_kind;
   std::string m_id;
 public:
+  virtual ~CaseElement() = 0; // It is not authorized to put an empty implementation ! AKA {} but...
   const std::string& getId() { return m_id; } // Something like "VCO_1"
   Kind getKind() { return m_kind; } // Something like Kind::VCO
   std::string dump() override;
@@ -49,16 +47,12 @@ private:
   CaseSingleton(const CaseSingleton&) {}
   static CaseSingleton* s_instance;
 public:
-/*
-  CaseSingleton();
   ~CaseSingleton();
-*/
-
-	static CaseSingleton* getInstance();
+	static CaseSingleton* instance();
   void add(CaseElement* element);
   void del(CaseElement* element);
-  CaseElement* getElement(const std::string& id);
-  int getSize();
+  CaseElement* element(const std::string& id);
+  int size();
   //const std::string& getID(int index);
   // Implement a getFirst, getNext by kind ?
   void clear(); // All this to not published the private collection
@@ -66,12 +60,13 @@ public:
 };
 
 typedef std::map<std::string, std::string> Dico;
-typedef std::map<std::string, std::string>::const_iterator DicocIt;
+typedef std::map<std::string, std::string>::iterator DicoIt;
+typedef std::map<std::string, std::string>::const_iterator DicoCIt;
 const int LOOP_COUNTER_MAX = 10;
 
 // Describe out's and ins min, max ?
 
-// class POT ?
+// class POT ? Or Knob ?
 
 // Base class for all audio modules...
 class AudioModule : public CaseElement //TODO: , IAMPersistent
@@ -86,6 +81,14 @@ public:
   void reset();
   std::string dump() override;
   //TODO: Check if others need to access ins & outs...
+};
+
+class OutModule : public AudioModule
+{
+//Special one :)
+public:
+  OutModule();
+  ~OutModule();
 };
 
 AudioModule* CreateModuleFactory(Kind kind);

@@ -52,7 +52,9 @@
 //==============================================================================
 int main (int argc, char* argv[])
 {
-	//TODO: Log "Starting a new session"
+	std::cout << "ahu ?" << std::endl;
+	logThis("Starting a new session", Target::misc);
+	std::cout << "ahu !" << std::endl;
 
     // std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
 
@@ -75,14 +77,19 @@ int main (int argc, char* argv[])
     }
     */
 
-    //TODO: Log "Starting the main loop"
+    juce::StringArray iDevices = listAllInputDevices();
+    std::cout << "Never reached :(" << std::endl;
+    juce::StringArray oDevices = listAllOutputDevices();
+    std::cout << "Device list done !" << std::endl;
+    CaseSingleton::instance()->add(new OutModule());
+    logThis("Starting the main loop", Target::misc);
 
 		std::string s;
 		char command[255] = ""; // I'm too lazy to convert ncurses char * based code...
     while (true)
     {
-      MainScreenSingleton::getInstance()->rebuild();
-      MainScreenSingleton::getInstance()->readLine(command, sizeof(command));
+      MainScreenSingleton::instance()->rebuild();
+      MainScreenSingleton::instance()->readLine(command, sizeof(command));
       s = std::string(command); // Back to C++ world...
 
 		  if (s.size() == 0)
@@ -92,7 +99,7 @@ int main (int argc, char* argv[])
 
 			if (!KeywordCommand::process(s))
 			{
-			  MainScreenSingleton::getInstance()->writeLine("Unrecognized command : " + s);
+			  MainScreenSingleton::instance()->writeLine("Unrecognized command : " + s);
 				continue;
 			}
 			else if (s.size() == 0)
@@ -106,10 +113,19 @@ int main (int argc, char* argv[])
       }
     } // while(true)
 
-    // Unload stuff here... Destroy the singletons :)
-	MainScreenSingleton::getInstance()->~MainScreenSingleton();
+	// Unload stuff here... Destroy the singletons :)
+	//MainScreenSingleton::instance()->~MainScreenSingleton();
+	delete MainScreenSingleton::instance();
 
-	//TODO: Log "Stopping  a new session"
+	// Useless to call manually the dtor, it is delete's job !
+	// https://stackoverflow.com/questions/677653/does-delete-call-the-destructor
+	//CaseSingleton::instance()->~CaseSingleton();
+	delete CaseSingleton::instance(); // Fake warning  !-) https://github.com/Benjamin-Dobell/Heimdall/issues/69
+
+	delete GlobalConfigurationSingleton::instance();
+	//delete...
+
+	logThis("Stopping the current session", Target::misc);
 
 	return 0;
 }

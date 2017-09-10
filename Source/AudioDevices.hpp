@@ -16,6 +16,8 @@ public:
 
 //TODO: Put here a special singleton "OUT" module ?
 
-//TODO: Iterate and log eventually the audio input devices seen by JUCE !
+juce::StringArray listAllInputDevices();
+juce::StringArray listAllOutputDevices();
+//void listenToDevice(const std::string& s);
 
 #endif // AUDIO_DEVICES

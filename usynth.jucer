@@ -2,8 +2,51 @@
 
 <JUCERPROJECT id="YlyBQM" name="usynth" projectType="consoleapp" version="1.0.0"
               bundleIdentifier="com.yourcompany.usynth" includeBinaryInAppConfig="1"
-              jucerVersion="4.3.1">
+              jucerVersion="5.1.1" displaySplashScreen="1" reportAppUsage="1"
+              splashScreenColour="Dark" cppLanguageStandard="11">
   <MAINGROUP id="vQIBc0" name="usynth">
+    <GROUP id="{F2AB5385-65AF-045D-5EC7-99C53898CDDE}" name="Source">
+      <FILE id="eoHfUB" name="AudioBuffers.cpp" compile="1" resource="0"
+            file="Source/AudioBuffers.cpp"/>
+      <FILE id="v9q5cx" name="AudioBuffers.hpp" compile="0" resource="0"
+            file="Source/AudioBuffers.hpp"/>
+      <FILE id="KFZFgr" name="AudioDevices.cpp" compile="1" resource="0"
+            file="Source/AudioDevices.cpp"/>
+      <FILE id="aCmh7S" name="AudioDevices.hpp" compile="0" resource="0"
+            file="Source/AudioDevices.hpp"/>
+      <FILE id="Rs4RwT" name="AudioModules.cpp" compile="1" resource="0"
+            file="Source/AudioModules.cpp"/>
+      <FILE id="aUpom3" name="AudioModules.hpp" compile="0" resource="0"
+            file="Source/AudioModules.hpp"/>
+      <FILE id="eg3szb" name="CommonStuffs.cpp" compile="1" resource="0"
+            file="Source/CommonStuffs.cpp"/>
+      <FILE id="ZMPreQ" name="CommonStuffs.hpp" compile="0" resource="0"
+            file="Source/CommonStuffs.hpp"/>
+      <FILE id="e6u1z6" name="ConfigurationFiles.cpp" compile="1" resource="0"
+            file="Source/ConfigurationFiles.cpp"/>
+      <FILE id="xXmBTm" name="ConfigurationFiles.hpp" compile="0" resource="0"
+            file="Source/ConfigurationFiles.hpp"/>
+      <FILE id="G56ras" name="KeywordCommands.cpp" compile="1" resource="0"
+            file="Source/KeywordCommands.cpp"/>
+      <FILE id="Lcz5pS" name="KeywordCommands.hpp" compile="0" resource="0"
+            file="Source/KeywordCommands.hpp"/>
+      <FILE id="w0mTQT" name="LaunchpadPrimitives.cpp" compile="1" resource="0"
+            file="Source/LaunchpadPrimitives.cpp"/>
+      <FILE id="fEwurs" name="LaunchpadPrimitives.hpp" compile="0" resource="0"
+            file="Source/LaunchpadPrimitives.hpp"/>
+      <FILE id="n3yECe" name="MidiCommands.cpp" compile="1" resource="0"
+            file="Source/MidiCommands.cpp"/>
+      <FILE id="TQUcZQ" name="MidiCommands.hpp" compile="0" resource="0"
+            file="Source/MidiCommands.hpp"/>
+      <FILE id="oZgQ9J" name="MidiNotes.cpp" compile="1" resource="0" file="Source/MidiNotes.cpp"/>
+      <FILE id="qPLmfm" name="MidiNotes.hpp" compile="0" resource="0" file="Source/MidiNotes.hpp"/>
+      <FILE id="laqYrA" name="ThreadedTimers.cpp" compile="1" resource="0"
+            file="Source/ThreadedTimers.cpp"/>
+      <FILE id="yeD3ez" name="ThreadedTimers.hpp" compile="0" resource="0"
+            file="Source/ThreadedTimers.hpp"/>
+      <FILE id="ZkvlR8" name="UIElements.cpp" compile="1" resource="0" file="Source/UIElements.cpp"/>
+      <FILE id="RFqm5d" name="UIElements.hpp" compile="0" resource="0" file="Source/UIElements.hpp"/>
+    </GROUP>
     <GROUP id="{9D8B205F-7226-B5CE-3F05-8A56E053AD0B}" name="Source">
       <FILE id="u4DRk1" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
@@ -34,8 +77,10 @@
     </VS2013>
     <CODEBLOCKS_LINUX targetFolder="Builds/CodeBlocksLinux">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="usynth"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="usynth"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="usynth"
+                       linuxCodeBlocksArchitecture="-m64"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="usynth"
+                       linuxCodeBlocksArchitecture="-m64"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../library/JUCE/modules"/>
@@ -53,6 +98,50 @@
         <MODULEPATH id="juce_audio_processors" path="../../library/JUCE/modules"/>
       </MODULEPATHS>
     </CODEBLOCKS_LINUX>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="usynth"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="usynth"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../library/JUCE/modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
+    <CODEBLOCKS_WINDOWS targetFolder="Builds/CodeBlocksWindows">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" windowsCodeBlocksArchitecture="-m64" isDebug="1"
+                       optimisation="1" targetName="usynth"/>
+        <CONFIGURATION name="Release" windowsCodeBlocksArchitecture="-m64" isDebug="0"
+                       optimisation="3" targetName="usynth"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../library/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../library/JUCE/modules"/>
+      </MODULEPATHS>
+    </CODEBLOCKS_WINDOWS>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>

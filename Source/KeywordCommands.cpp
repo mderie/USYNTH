@@ -46,12 +46,12 @@ bool KeywordCommand::process(std::string &what)
   }
   else if ((tokens[0] == "LS") or (tokens[0] == "DIR"))
   {
-		MainScreenSingleton::getInstance()->writeLine(CaseSingleton::getInstance()->dump());
+		MainScreenSingleton::instance()->writeLine(CaseSingleton::instance()->dump());
     return true;
   }
   else if ((tokens[0] == "CLS") or (tokens[0] == "CLEAR"))
   {
-		MainScreenSingleton::getInstance()->clear2();
+		MainScreenSingleton::instance()->clear2();
     return true;
   }
   // Global alternative sample : else if (stringUpper(tokens[0]) == "ADD")
@@ -59,24 +59,30 @@ bool KeywordCommand::process(std::string &what)
   {
     if (tokens.size() != 2)
     {
-      MainScreenSingleton::getInstance()->writeLine("The ADD command expects one parameter, ie : VCO, LFO, ...");
+      MainScreenSingleton::instance()->writeLine("The ADD command expects one parameter, ie : VCO, LFO, ...");
 			return true; // Although we did not do anything...
     }
     Kind kind = moduleKind(tokens[1]);
     if (kind == Kind::LAST_ITEM)
     {
-      MainScreenSingleton::getInstance()->writeLine("Unknown module : " + tokens[1]);
+      MainScreenSingleton::instance()->writeLine("Unknown module : " + tokens[1]);
 			return true; // Id.
+    }
+
+    if (kind == Kind::OUT)
+    {
+			MainScreenSingleton::instance()->writeLine("OUT module is unique and already exists !");
+			return true;
     }
 
     AudioModule* module = CreateModuleFactory(kind);
     if (module == nullptr)
     {
-      MainScreenSingleton::getInstance()->writeLine("Module : " + tokens[1] + " not yet implemented, sorry!");
+      MainScreenSingleton::instance()->writeLine("Module : " + tokens[1] + " not yet implemented, sorry!");
 			return true;
     }
 
-		CaseSingleton::getInstance()->add(module);
+		CaseSingleton::instance()->add(module);
     return true;
   }
   else if ((tokens[0] == "REMOVE") or (tokens[0] == "DELETE"))
@@ -106,14 +112,14 @@ bool KeywordCommand::process(std::string &what)
   }
   else if (tokens[0] == "ABOUT")
   {
-		MainScreenSingleton::getInstance()->writeLine("Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV - Project started somewhere in 2017");
-		MainScreenSingleton::getInstance()->writeLine("                    The sole console based modular synth ? ==> So the most powerfull !-)");
+		MainScreenSingleton::instance()->writeLine("Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV - Project started somewhere in 2017");
+		MainScreenSingleton::instance()->writeLine("                    The sole console based modular synth ? ==> So the most powerfull !-)");
 		return true;
   }
 
   else if ((tokens[0] == "?") or (tokens[0] == "HELP"))
   {
-		MainScreenSingleton::getInstance()->writeLine("Here's the known commands so far :\n\nQUIT / EXIT : Leave USynth\nLS / DIR : List the case content\nCLS / CLEAR : Clear the screen and the command history");
+		MainScreenSingleton::instance()->writeLine("Here's the known commands so far :\n\nQUIT / EXIT : Leave USynth\nLS / DIR : List the case content\nCLS / CLEAR : Clear the screen and the command history");
 		return true;
   }
   else
