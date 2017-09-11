@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <iostream>
 #include <ctime>
+#include <sstream>
 
 // C++17 only : defined in the upcoming C++ 17 standard
 // #include <filesystem>
@@ -22,6 +23,14 @@
 #include <unistd.h>
 #define GetCurrentDir getcwd
 #endif
+
+// Can't understand why there is no shorter way to perform this conversion...
+std::string intToStr(int value)
+{
+	std::stringstream ss;
+	ss << value;
+	return ss.str();
+}
 
 // No real standard c++ to do this... See above !
 std::string runningFolder()
@@ -96,6 +105,22 @@ std::vector<std::string> split(const std::string& str, const std::string& delimi
     return result;
 }
 
+/*
+// C++17 or Boost...
+#include <experimental/filesystem> // or #include <filesystem>
+namespace fs = std::experimental::filesystem;
+void createLogFolders()
+{
+	for (auto s : folders)
+	{
+		if (!fs::exists(s))
+		{
+			fs::create_directory(s);
+		}
+	}
+}
+*/
+
 void logThis(const char *s, Target t)
 {
   if (GlobalConfigurationSingleton::instance()->getKeyValue(targets[(int) t]) == "0")
@@ -109,7 +134,7 @@ void logThis(const char *s, Target t)
 
   time (&rawtime);
   timeinfo = localtime(&rawtime);
-  strftime(timestamp, sizeof(timestamp), "%d-%m-%Y %H:%M:%S", timeinfo);
+  strftime(timestamp, sizeof(timestamp), "%d/%m/%Y %H:%M:%S", timeinfo);
 
   std::string fullFilename = appendPath({ runningFolder(), folders[(int) Folder::logs], targets[(int) t] }) + ".log";
   //std::cout << "fullFilename = " << fullFilename << std::endl;

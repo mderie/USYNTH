@@ -18,6 +18,8 @@
 
 // (You can add your own code in this section, and the Projucer will not overwrite it)
 
+#define JUCE_ALSA_MIDI_NAME "USYNTH"
+
 // [END_USER_CODE_SECTION]
 
 /*

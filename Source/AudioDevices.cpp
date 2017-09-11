@@ -4,6 +4,18 @@
 
 #include <iostream>
 
+void GlobalMidiInputCallback::handleIncomingMidiMessage(juce::MidiInput* source, const juce::MidiMessage& message)
+{
+	logThis("Incomming message = ...", Target::midi);
+	const juce::uint8* p = message.getRawData();
+	std::string s;
+	for (int i = 0; i < message.getRawDataSize(); i++)
+	{
+		s = intToStr(static_cast<int>(*(p + i)));
+		logThis(s.c_str(), Target::midi);
+	}
+}
+
 juce::StringArray listAllInputDevices()
 {
 	std::cout << "listAllInputDevices 1" << std::endl;

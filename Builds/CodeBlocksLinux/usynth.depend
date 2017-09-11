@@ -3,7 +3,7 @@
 	"AppConfig.h"
 	<juce_audio_basics/juce_audio_basics.cpp>
 
-1505054842 /home/sam/laboratory/usynth/JuceLibraryCode/AppConfig.h
+1505154426 /home/sam/laboratory/usynth/JuceLibraryCode/AppConfig.h
 
 1501690316 /home/sam/library/JUCE/modules/juce_audio_basics/juce_audio_basics.cpp
 	"juce_audio_basics.h"
@@ -4327,7 +4327,7 @@
 	"../native/juce_win32_CameraDevice.h"
 	"../native/juce_android_CameraDevice.h"
 
-1504988752 source:/home/sam/laboratory/usynth/Source/Main.cpp
+1505068532 source:/home/sam/laboratory/usynth/Source/Main.cpp
 	<iostream>
 	<string>
 	"../JuceLibraryCode/JuceHeader.h"
@@ -4390,16 +4390,16 @@
 1492335414 /home/sam/laboratory/usynth/Source/LaunchpadPrimitives.hpp
 	"../JuceLibraryCode/JuceHeader.h"
 
-1504983434 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
+1505060708 source:/home/sam/laboratory/usynth/Source/KeywordCommands.cpp
 	<sstream>
 	<iterator>
 	<vector>
 	<algorithm>
 	<ctype.h>
-	<ciso646>
 	"KeywordCommands.hpp"
 	"AudioModules.hpp"
 	"UIElements.hpp"
+	"CommonStuffs.hpp"
 
 1504543634 /home/sam/laboratory/usynth/Source/KeywordCommands.hpp
 	<string>
@@ -4429,25 +4429,24 @@
 	<string>
 	<vector>
 
-1504971599 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
+1505060790 source:/home/sam/laboratory/usynth/Source/UIElements.cpp
 	<iostream>
 	<iterator>
 	<vector>
 	<algorithm>
 	<curses.h>
-	<unistd.h>
 	<string.h>
 	<ctype.h>
 	<stdlib.h>
 	"UIElements.hpp"
 	"CommonStuffs.hpp"
 
-1504989842 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
+1505068474 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
 	"AudioDevices.hpp"
 	"CommonStuffs.hpp"
 	<iostream>
 
-1504988723 /home/sam/laboratory/usynth/Source/AudioDevices.hpp
+1505068706 /home/sam/laboratory/usynth/Source/AudioDevices.hpp
 	"../JuceLibraryCode/JuceHeader.h"
 
 1501923857 source:/home/sam/laboratory/usynth/Source/ThreadedTimers.cpp
@@ -4455,18 +4454,21 @@
 
 1501923839 /home/sam/laboratory/usynth/Source/ThreadedTimers.hpp
 
-1504987723 /home/sam/laboratory/usynth/Source/CommonStuffs.hpp
+1505068223 /home/sam/laboratory/usynth/Source/CommonStuffs.hpp
 	<string>
 	<vector>
+	<ciso646>
 
-1504989482 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
+1505068457 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
 	"CommonStuffs.hpp"
 	"ConfigurationFiles.hpp"
 	<algorithm>
 	<iostream>
 	<ctime>
+	<sstream>
 	<direct.h>
 	<unistd.h>
+	<experimental/filesystem>
 
 1501690318 /home/sam/library/JUCE/modules/juce_core/misc/juce_StdFunctionCompat.h
 

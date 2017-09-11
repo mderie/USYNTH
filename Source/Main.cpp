@@ -52,9 +52,20 @@
 //==============================================================================
 int main (int argc, char* argv[])
 {
+	std::cout << "Please check that all the required folders exist !" << std::endl;
+	//createLogFolders();
+	//check for all the other folder existenz !
 	std::cout << "ahu ?" << std::endl;
 	logThis("Starting a new session", Target::misc);
 	std::cout << "ahu !" << std::endl;
+	/*
+	testDebile = juce::MidiInput::op Devices();
+	for (auto item : testDebile)
+	{
+		std::cout << "main :" << std::endl;
+		logThis(item.toUTF8(), Target::device);
+	}
+	*/
 
     // std::cout << "Welcome to USynth (reloaded) - the Sound EXplorer - Coded by Sam TFL/TDV" << std::endl;
 
@@ -123,9 +134,12 @@ int main (int argc, char* argv[])
 	delete CaseSingleton::instance(); // Fake warning  !-) https://github.com/Benjamin-Dobell/Heimdall/issues/69
 
 	delete GlobalConfigurationSingleton::instance();
-	//delete...
+	// Calling delete is safe on nullptr :
+	// https://stackoverflow.com/questions/6731331/is-it-still-safe-to-delete-nullptr-in-c0x
 
 	logThis("Stopping the current session", Target::misc);
+
+	// delete logger singleton here if any !
 
 	return 0;
 }

@@ -5,13 +5,10 @@
 #include <algorithm>
 #include <ctype.h>
 
-#ifdef WIN32
-#include <ciso646>
-#endif
-
 #include "KeywordCommands.hpp"
 #include "AudioModules.hpp"
 #include "UIElements.hpp"
+#include "CommonStuffs.hpp"
 
 using namespace std;
 

@@ -13,7 +13,7 @@
 //}
 
 // Some C headers that goes with ncurses... And my primitive logger
-#include <unistd.h>
+//#include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
