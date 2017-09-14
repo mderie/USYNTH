@@ -13,11 +13,13 @@
 class ConfigurationFile
 {
 private:
-  std::map<std::string, std::string> m_dic;
+  std::map<std::string, std::map<std::string, std::string> > m_contents; // The "> > " means I'm old school :)
 public:
 	ConfigurationFile(const std::string &filename);
-	std::string getKeyValue(const std::string &key);
-	std::vector<std::string> getKeys();
+	//Not needed ? virtual ~ConfigurationFile();
+	~ConfigurationFile();
+	std::string keyValue(const std::string &section, const std::string &key);
+	std::vector<std::string> keyNames(const std::string &section);
 };
 
 class GlobalConfigurationSingleton : public ConfigurationFile
@@ -27,7 +29,9 @@ private:
   GlobalConfigurationSingleton();
   //GlobalConfigurationSingleton(const GlobalConfigurationSingleton &) {}
 public:
+  //TODO: Fix the SegFault when delete the instance pointer
   static GlobalConfigurationSingleton *instance();
+  //~GlobalConfigurationSingleton();
 };
 
 class MidiConfigurationSingleton : public ConfigurationFile

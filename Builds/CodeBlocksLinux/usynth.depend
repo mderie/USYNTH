@@ -4327,7 +4327,7 @@
 	"../native/juce_win32_CameraDevice.h"
 	"../native/juce_android_CameraDevice.h"
 
-1505068532 source:/home/sam/laboratory/usynth/Source/Main.cpp
+1505406609 source:/home/sam/laboratory/usynth/Source/Main.cpp
 	<iostream>
 	<string>
 	"../JuceLibraryCode/JuceHeader.h"
@@ -4414,13 +4414,13 @@
 
 1500739799 /home/sam/laboratory/usynth/Source/MidiNotes.hpp
 
-1504987571 source:/home/sam/laboratory/usynth/Source/ConfigurationFiles.cpp
+1505334128 source:/home/sam/laboratory/usynth/Source/ConfigurationFiles.cpp
 	<iostream>
 	<fstream>
 	"ConfigurationFiles.hpp"
 	"CommonStuffs.hpp"
 
-1504985700 /home/sam/laboratory/usynth/Source/ConfigurationFiles.hpp
+1505406962 /home/sam/laboratory/usynth/Source/ConfigurationFiles.hpp
 	<string>
 	<map>
 	<vector>
@@ -4441,7 +4441,7 @@
 	"UIElements.hpp"
 	"CommonStuffs.hpp"
 
-1505068474 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
+1505333080 source:/home/sam/laboratory/usynth/Source/AudioDevices.cpp
 	"AudioDevices.hpp"
 	"CommonStuffs.hpp"
 	<iostream>
@@ -4459,7 +4459,7 @@
 	<vector>
 	<ciso646>
 
-1505068457 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
+1505331767 source:/home/sam/laboratory/usynth/Source/CommonStuffs.cpp
 	"CommonStuffs.hpp"
 	"ConfigurationFiles.hpp"
 	<algorithm>

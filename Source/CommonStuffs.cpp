@@ -123,7 +123,7 @@ void createLogFolders()
 
 void logThis(const char *s, Target t)
 {
-  if (GlobalConfigurationSingleton::instance()->getKeyValue(targets[(int) t]) == "0")
+  if (GlobalConfigurationSingleton::instance()->keyValue("log", targets[(int) t]) == "0")
   {
 		return;
   }

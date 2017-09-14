@@ -1,0 +1,5 @@
+[JUCE]
+NAME="Launchpad Mini"
+[MAPPING]
+IsKeyboard=0
+;TODO: Midi mapping code => button

@@ -1,4 +1,5 @@
-; Name the section here !-)
-; []
-IsKeyboard=1;
+[JUCE]
+NAME="TODO"
+[MAPPING]
+IsKeyboard=1
 ; TODO: Think about the pitch & the mod

@@ -1,14 +1,4 @@
 
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-    It contains the basic startup code for a Juce application.
-
-  ==============================================================================
-*/
-
 #include <iostream>
 #include <string>
 
@@ -46,10 +36,6 @@
 #include "ThreadedTimers.hpp"
 #include "AudioDevices.hpp"
 
-// To be removed ?
-//using namespace std;
-
-//==============================================================================
 int main (int argc, char* argv[])
 {
 	std::cout << "Please check that all the required folders exist !" << std::endl;
@@ -89,9 +75,9 @@ int main (int argc, char* argv[])
     */
 
     juce::StringArray iDevices = listAllInputDevices();
-    std::cout << "Never reached :(" << std::endl;
+    //std::cout << "Never reached :(" << std::endl;
     juce::StringArray oDevices = listAllOutputDevices();
-    std::cout << "Device list done !" << std::endl;
+    //std::cout << "Device list done !" << std::endl;
     CaseSingleton::instance()->add(new OutModule());
     logThis("Starting the main loop", Target::misc);
 
@@ -124,6 +110,7 @@ int main (int argc, char* argv[])
       }
     } // while(true)
 
+	std::cout << "About to delete MainScreenSingleton" << std::endl;
 	// Unload stuff here... Destroy the singletons :)
 	//MainScreenSingleton::instance()->~MainScreenSingleton();
 	delete MainScreenSingleton::instance();
@@ -131,9 +118,11 @@ int main (int argc, char* argv[])
 	// Useless to call manually the dtor, it is delete's job !
 	// https://stackoverflow.com/questions/677653/does-delete-call-the-destructor
 	//CaseSingleton::instance()->~CaseSingleton();
+	std::cout << "About to delete CaseSingleton" << std::endl;
 	delete CaseSingleton::instance(); // Fake warning  !-) https://github.com/Benjamin-Dobell/Heimdall/issues/69
 
-	delete GlobalConfigurationSingleton::instance();
+	std::cout << "About to delete GlobalConfigurationSingleton" << std::endl;
+	delete ((ConfigurationFile*) GlobalConfigurationSingleton::instance()); //TODO: Care instance() here is in fact a ConfigurationFile !!!
 	// Calling delete is safe on nullptr :
 	// https://stackoverflow.com/questions/6731331/is-it-still-safe-to-delete-nullptr-in-c0x
 
@@ -141,5 +130,6 @@ int main (int argc, char* argv[])
 
 	// delete logger singleton here if any !
 
+	std::cout << "That's all folks" << std::endl;
 	return 0;
 }

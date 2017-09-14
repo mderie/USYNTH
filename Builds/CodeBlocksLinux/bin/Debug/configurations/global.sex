@@ -1,5 +1,13 @@
-; Create a section here !-)
+; Fine tune the section names ?
+[general]
 ShowAboutAtStartup=0
+
+[MidiDeviceReadable]
+; Put here the beginning of the device name seen by JUCE
+BCR2000=BehringerBcr2000.sex
+grr
+[MidiDeviceWritable]
+Launchpad Mini=NovationLaunchpadMini.sex
 
 [log]
 misc=1

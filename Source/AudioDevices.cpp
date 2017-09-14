@@ -19,7 +19,7 @@ void GlobalMidiInputCallback::handleIncomingMidiMessage(juce::MidiInput* source,
 juce::StringArray listAllInputDevices()
 {
 	std::cout << "listAllInputDevices 1" << std::endl;
-  juce::StringArray result = juce::MidiInput::getDevices(); // BOUM !!!
+  juce::StringArray result = juce::MidiInput::getDevices(); // No BOUM anymore... Added a #define in the AppConfig.H !!!
   std::cout << "listAllInputDevices 2" << std::endl;
   std::string found = "Found audio input device = ...";
 
@@ -35,14 +35,18 @@ juce::StringArray listAllInputDevices()
 
 juce::StringArray listAllOutputDevices()
 {
+	std::cout << "listAllOutputDevices 1" << std::endl;
   juce::StringArray result = juce::MidiOutput::getDevices();
+  std::cout << "listAllOutputDevices 2" << std::endl;
   std::string found = "Found audio output device = ...";
 
 	for (auto item : result)
 	{
+		std::cout << "listAllOutputDevices 3" << std::endl;
 		logThis(found.c_str(), Target::device);
 		logThis(item.toUTF8(), Target::device);
 	}
+	std::cout << "listAllOutputDevices 4" << std::endl;
 	return result;
 }
 
@@ -52,4 +56,4 @@ void BasicSynth::getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill)
   // Extra process can take place here
 }
 
-//TODO: Iterate through all midi input devices and log their names if needed !
+//midiLP = juce::MidiOutput::openDevice(lpOutIndex);
