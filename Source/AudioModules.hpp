@@ -20,8 +20,9 @@
 
 // Don't use LAST_ITEM, it is a trick :)
 //TODO: Remove CBL ? In order to keep only modules ?
-enum class Kind { CBL, LFO, VCO, VCF, VCA, RND, DUP, ENV, ADD, SUB, AND, MIX, NOT, PAN, OUT, LAST_ITEM }; // With the NOT maybe we don't need the SUB ?
-const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "VCA", "RND", "DUP", "ENV", "ADD", "SUB", "AND", "MIX", "NOT", "PAN", "OUT" };
+//TODO: Rename Kind to ModuleKind ?
+enum class Kind { CBL, LFO, VCO, VCF, VCA, RND, DUP, ENV, ADD, SUB, AND, MIX, NOT, PAN, SPK, LAST_ITEM }; // With the NOT maybe we don't need the SUB ?
+const std::string Kinds[(int) Kind::LAST_ITEM] = { "CBL", "LFO", "VCO", "VCF", "VCA", "RND", "DUP", "ENV", "ADD", "SUB", "AND", "MIX", "NOT", "PAN", "SPK" };
 Kind moduleKind(const std::string &s); // Could it be templatized ?
 
 // Base class for all elements in a case (cable and module)
@@ -31,7 +32,7 @@ protected:
   Kind m_kind;
   std::string m_id;
 public:
-  virtual ~CaseElement() = 0; // It is not authorized to put an empty implementation ! AKA {} but...
+  virtual ~CaseElement() = 0; // It is not authorized to put an empty implementation ! AKA {} but... See implementation :)
   const std::string& getId() { return m_id; } // Something like "VCO_1"
   Kind getKind() { return m_kind; } // Something like Kind::VCO
   std::string dump() override;
@@ -67,11 +68,14 @@ const int LOOP_COUNTER_MAX = 10;
 // Describe out's and ins min, max ?
 
 // class POT ? Or Knob ?
+// class switch ?
 
 // Base class for all audio modules...
 class AudioModule : public CaseElement //TODO: , IAMPersistent
 {
 protected:
+	Dico m_pots;
+	Dico m_switchs;
   Dico m_ins;
   Dico m_outs;
   int m_loop_counter_max; // Avoid infinite recursion if the cable patchs path holds one or more loops
@@ -79,16 +83,19 @@ protected:
 public:
   AudioModule();
   void reset();
+  bool patch(const std::string& from, const std::string& to);
+  bool turn(const std::string& newValue, const std::string& to);
+  bool tick(const std::string& newValue, const std::string& to);
   std::string dump() override;
   //TODO: Check if others need to access ins & outs...
 };
 
-class OutModule : public AudioModule
+class SpkModule : public AudioModule
 {
 //Special one :)
 public:
-  OutModule();
-  ~OutModule();
+  SpkModule();
+  ~SpkModule();
 };
 
 AudioModule* CreateModuleFactory(Kind kind);

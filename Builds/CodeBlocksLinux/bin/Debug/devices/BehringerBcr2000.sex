@@ -1,5 +1,7 @@
 [JUCE]
 NAME="BCR2000"
+
+; Mapping internal event ==> case specific
 [MAPPING]
 ; Line 1 column 1 QUID 09 or 55 (even 0-255) pot values ?
 ROTC11=OSC1.RATE

@@ -74,7 +74,7 @@ std::string appendPath(const std::vector<std::string> &pieces)
 
 void join(std::string &dest, const std::string &item, const std::string &delimiter)
 {
-	if (dest.size() >= 0)
+	if (dest.size() > 0)
 	{
 		dest += delimiter;
 	}

@@ -29,8 +29,7 @@ private:
   GlobalConfigurationSingleton();
   //GlobalConfigurationSingleton(const GlobalConfigurationSingleton &) {}
 public:
-  //TODO: Fix the SegFault when delete the instance pointer
-  static GlobalConfigurationSingleton *instance();
+   static GlobalConfigurationSingleton *instance();
   //~GlobalConfigurationSingleton();
 };
 

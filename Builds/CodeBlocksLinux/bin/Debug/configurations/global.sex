@@ -5,7 +5,7 @@ ShowAboutAtStartup=0
 [MidiDeviceReadable]
 ; Put here the beginning of the device name seen by JUCE
 BCR2000=BehringerBcr2000.sex
-grr
+;grr ==> Test : just remove the semi colon
 [MidiDeviceWritable]
 Launchpad Mini=NovationLaunchpadMini.sex
 
@@ -17,4 +17,5 @@ midi=0
 ; Or note ?
 keyboard=0
 commands=0
+
 ;...

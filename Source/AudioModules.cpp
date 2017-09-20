@@ -100,7 +100,7 @@ std::string CaseSingleton::dump()
 
   for (const auto& kv : m_elements)
   {
-    join(result, kv.first + "=" + kv.second->dump(),"\n"); // Or use "," as delimiter ?
+    join(result, kv.first + "=" + kv.second->dump(), "\n"); // Or use "," as delimiter ?
 	}
 
 	if (result.size() == 0)
@@ -144,7 +144,7 @@ AudioModule* CreateModuleFactory(Kind kind)
 		case Kind::MIX :
 		case Kind::NOT :
 		case Kind::PAN :
-		case Kind::OUT : return nullptr;
+		case Kind::SPK : return nullptr; // SPK can't be created this way !
 		default: return nullptr;
 	}
 }
@@ -157,21 +157,75 @@ AudioModule::AudioModule()
 
 std::string AudioModule::dump()
 {
-	std::string result = "IN = ";
-	std::string tmp = "";
-  // for_each(m_ins.begin(), m_ins.end(), join(result, it*...second ? ))
-  for (const auto& kv : m_ins)
+	std::string result = Kinds[(int) m_kind] + "; INS = ";
+  std::string tmp = "";
+  for (const auto& kv : m_ins) // // for_each(m_ins.begin(), m_ins.end(), join(result, it*...second ? ))
   {
     join(tmp, kv.first + '=' + kv.second, ",");
 	}
 
-	result += tmp + ";OUT = ";
+	result += tmp + ";OUTS = ";
 	tmp = "";
   for (const auto& kv : m_outs)
   {
     join(tmp, kv.first + '=' + kv.second, ",");
 	}
+
+	result += tmp + ";POTS = ";
+	tmp = "";
+  for (const auto& kv : m_pots)
+  {
+    join(tmp, kv.first + '=' + kv.second, ",");
+	}
+
+	result += tmp + ";SWITCHS = ";
+	tmp = "";
+  for (const auto& kv : m_switchs)
+  {
+    join(tmp, kv.first + '=' + kv.second, ",");
+	}
+
 	return result + tmp;
+}
+
+bool AudioModule::patch(const std::string& from, const std::string& to)
+{
+	if (m_ins.find(to) == m_ins.end())
+	{
+		//logThis("In %s not found on module %s", Target::misc);
+		return false;
+	}
+	else if (m_ins[to] != "")
+	{
+		//logThis("In %s already filled in with %s on module %s", Target::misc);
+		return false;
+	}
+
+	m_ins[to] = from;
+	return true;
+}
+bool AudioModule::turn(const std::string& newValue, const std::string& to)
+{
+	if (m_pots.find(to) == m_pots.end())
+	{
+		//logThis("Pot %s not found on module %s", Target::misc);
+		return false;
+	}
+	m_pots[to] = newValue;
+
+	return true;
+}
+
+bool AudioModule::tick(const std::string& newValue, const std::string& to)
+{
+	if (m_switchs.find(to) == m_switchs.end())
+	{
+		//logThis("Switch %s not found on module %s", Target::misc);
+		return false;
+	}
+	m_switchs[to] = newValue;
+
+	return true;
 }
 
 void AudioModule::reset()
@@ -179,16 +233,17 @@ void AudioModule::reset()
   m_loop_counter = 0;
 }
 
-/////////////////////// OutModule ///////////////////////
+/////////////////////// SpkModule ///////////////////////
 
-OutModule::OutModule()
+SpkModule::SpkModule()
 {
-	m_kind = Kind::OUT;
+	m_kind = Kind::SPK;
   m_ins["L"] = "";
   m_ins["R"] = "";
+  m_switchs["OUT"] = "Y";
 }
 
-OutModule::~OutModule()
+SpkModule::~SpkModule()
 {
 //TODO: Needed ?
 }

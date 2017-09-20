@@ -39,7 +39,7 @@
 int main (int argc, char* argv[])
 {
 	std::cout << "Please check that all the required folders exist !" << std::endl;
-	//createLogFolders();
+	//createAllFolders();
 	//check for all the other folder existenz !
 	std::cout << "ahu ?" << std::endl;
 	logThis("Starting a new session", Target::misc);
@@ -58,11 +58,11 @@ int main (int argc, char* argv[])
     // Create here all the global objects (argh !-)
     //MainScreen ms;
 
-    //if (GlobalConfigurationSingleton::getInstance()->getKeyValue("ShowAboutAtStartup") == "1")
-    //{
+    if (GlobalConfigurationSingleton::instance()->keyValue("general", "ShowAboutAtStartup") == "1")
+    {
     //TODO: Review this !
 		//	MainScreenSingleton::getInstance()->writeLine("TODO...");
-    //}
+    }
 
     //ConfigurationFile ?;
 
@@ -74,11 +74,12 @@ int main (int argc, char* argv[])
     }
     */
 
+    //Introduce here a device handler hub (yet another singleton...
     juce::StringArray iDevices = listAllInputDevices();
     //std::cout << "Never reached :(" << std::endl;
     juce::StringArray oDevices = listAllOutputDevices();
     //std::cout << "Device list done !" << std::endl;
-    CaseSingleton::instance()->add(new OutModule());
+    CaseSingleton::instance()->add(new SpkModule()); // Add a special flag in order to tag ig impossbible to remove ?
     logThis("Starting the main loop", Target::misc);
 
 		std::string s;
@@ -122,7 +123,7 @@ int main (int argc, char* argv[])
 	delete CaseSingleton::instance(); // Fake warning  !-) https://github.com/Benjamin-Dobell/Heimdall/issues/69
 
 	std::cout << "About to delete GlobalConfigurationSingleton" << std::endl;
-	delete ((ConfigurationFile*) GlobalConfigurationSingleton::instance()); //TODO: Care instance() here is in fact a ConfigurationFile !!!
+	delete ((ConfigurationFile*) GlobalConfigurationSingleton::instance());
 	// Calling delete is safe on nullptr :
 	// https://stackoverflow.com/questions/6731331/is-it-still-safe-to-delete-nullptr-in-c0x
 
